@@ -1,17 +1,20 @@
 package com.example.eclecticretreathaven.web;
 
 import com.example.eclecticretreathaven.model.Accommodations;
+import com.example.eclecticretreathaven.model.enums.AccommodationTypes;
 import com.example.eclecticretreathaven.service.AccommodationsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/accommodations")
 @RequiredArgsConstructor
+@CrossOrigin
 public class AccommodationsController {
 
 
@@ -48,6 +51,12 @@ public class AccommodationsController {
     public ResponseEntity<Void> deleteAccommodation(@PathVariable Long id) {
         accommodationsService.deleteAccommodation(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/types")
+    public ResponseEntity<List<String>> getAccommodationTypes() {
+        List<String> types = Arrays.stream(AccommodationTypes.values()).map(type -> type.label).toList();
+        return ResponseEntity.ok(types);
     }
 }
 

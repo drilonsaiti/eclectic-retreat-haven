@@ -29,17 +29,17 @@ public class Accommodations {
     private int discount;
 
     @Column(name = "description", nullable = false)
-    private int description;
+    private String description;
 
-    @Column(name = "image", nullable = false)
+    @Column(name = "image", nullable = true)
     private String image;
 
-    @Column(name = "types", nullable = false)
+    @Column(name = "types", nullable = true)
     private AccommodationTypes types;
 
 
 
-    public Accommodations(String name, int maxCapacity, int regularPrice, int discount, int description, String image, AccommodationTypes types) {
+    public Accommodations(String name, int maxCapacity, int regularPrice, int discount, String description, String image, AccommodationTypes types) {
         this.name = name;
         this.maxCapacity = maxCapacity;
         this.regularPrice = regularPrice;
