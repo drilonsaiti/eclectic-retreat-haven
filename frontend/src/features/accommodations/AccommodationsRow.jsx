@@ -4,6 +4,9 @@ import Button from "../../ui/Button.jsx";
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {deleteAccommodation, getAccommodations, getAccommodationsTypes} from "../../services/apiAccommodations.js";
 import toast from "react-hot-toast";
+import ButtonGroup from "../../ui/ButtonGroup.jsx";
+import {useState} from "react";
+import CreateAccommodationsForm from "./CreateAccommodationsForm.jsx";
 
 const TableRow = styled.div`
   display: grid;
@@ -16,6 +19,7 @@ const TableRow = styled.div`
     border-bottom: 1px solid var(--color-grey-100);
   }
 `;
+
 
 const Img = styled.img`
   display: block;
@@ -48,6 +52,7 @@ const Discount = styled.div`
 
 // eslint-disable-next-line react/prop-types
 const AccommodationsRow = ({accommodation}) => {
+    const [showForm,setShowForm] = useState(false);
     const {accommodationId,name,maxCapacity,regularPrice,discount,image,types} = accommodation;
 
     const queryClient = useQueryClient();
@@ -62,15 +67,23 @@ const AccommodationsRow = ({accommodation}) => {
         onError: (error) => toast.error(error.message)
     })
     return (
+        <>
         <TableRow role="row">
             <Img src={image} />
-            <Accommodation>{types}</Accommodation>
+            <Accommodation>{name}</Accommodation>
             <div>Fits up to {maxCapacity} guests</div>
             <Price>{formatCurrency(regularPrice)}</Price>
             <Discount>{formatCurrency(discount)}</Discount>
-            <Button variation="danger" onClick={() => mutate(accommodationId)} disabled={isPending}
-            >Delete</Button>
+            <ButtonGroup>
+                <Button variation="secondary" onClick={() => setShowForm(!showForm)} disabled={isPending}
+                >Edit</Button>
+                <Button variation="danger" onClick={() => mutate(accommodationId)} disabled={isPending}
+                >Delete</Button>
+            </ButtonGroup>
         </TableRow>
+
+    {showForm && <CreateAccommodationsForm accommodationToEdit={accommodation}/>}
+    </>
     );
 };
 

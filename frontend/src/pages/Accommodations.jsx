@@ -11,7 +11,7 @@ function Accommodations() {
       <>
     <Row type="horizontal">
       <Heading as="h1">All accommodations</Heading>
-      <p>TEST</p>
+
     </Row>
 
       <Row>

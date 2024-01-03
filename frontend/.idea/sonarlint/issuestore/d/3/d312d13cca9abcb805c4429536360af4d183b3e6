@@ -1,0 +1,15 @@
+
+Pjavascript:S1128"(Remove this unused import of 'useQuery'.(—éúøûÿÿÿÿ8¸„°×Ì1
+Tjavascript:S1128"1Remove this unused import of 'getAccommodations'.(Ð”Öì8¸„°×Ì1
+Yjavascript:S1128"6Remove this unused import of 'getAccommodationsTypes'.(Ð”Öì8¸„°×Ì1
+Vjavascript:S67746".'accommodation' is missing in props validation(­êð–þÿÿÿÿ8¸„°×Ì1
+ajavascript:S67748">'accommodation.accommodationId' is missing in props validation(ü’ß©8¸„°×Ì1
+Vjavascript:S67748"3'accommodation.name' is missing in props validation(ü’ß©8¸„°×Ì1
+]javascript:S67748":'accommodation.maxCapacity' is missing in props validation(ü’ß©8¸„°×Ì1
+^javascript:S67748";'accommodation.regularPrice' is missing in props validation(ü’ß©8¸„°×Ì1
+Zjavascript:S67748"7'accommodation.discount' is missing in props validation(ü’ß©8¹„°×Ì1
+Wjavascript:S67748"4'accommodation.image' is missing in props validation(ü’ß©8¹„°×Ì1
+Yjavascript:S14818"6Remove the declaration of the unused 'types' variable.(ü’ß©8¹„°×Ì1
+Wjavascript:S67748"4'accommodation.types' is missing in props validation(ü’ß©8¹„°×Ì1
+Vjavascript:S18548"3Remove this useless assignment to variable "types".(ü’ß©8¹„°×Ì1
+qjavascript:S6819G"NUse <tr> instead of the "row" role to ensure accessibility across all devices.(Ù³Æâ8¹„°×Ì1

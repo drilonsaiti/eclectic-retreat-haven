@@ -24,8 +24,7 @@ const StyledFormRow = styled.div`
         ? "none"
         : "1px solid var(--color-grey-100)"};
   }
-
-  /* Special treatment if the row contains buttons, and if it's NOT a vertical row */
+  
   ${(props) =>
     props.orientation !== "vertical" &&
     css`
