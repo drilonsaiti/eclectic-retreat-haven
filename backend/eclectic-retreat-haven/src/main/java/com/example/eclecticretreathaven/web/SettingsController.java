@@ -1,7 +1,9 @@
 package com.example.eclecticretreathaven.web;
 
 import com.example.eclecticretreathaven.model.Settings;
+import com.example.eclecticretreathaven.model.dto.SettingsDto;
 import com.example.eclecticretreathaven.service.SettingsService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,10 +12,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/settings")
+@CrossOrigin
+@RequiredArgsConstructor
 public class SettingsController {
 
-    @Autowired
-    private SettingsService settingsService;
+    private final SettingsService settingsService;
 
     @GetMapping
     public List<Settings> getAllSettings() {
@@ -27,14 +30,14 @@ public class SettingsController {
     }
 
     @PostMapping
-    public ResponseEntity<Settings> createSettings(@RequestBody Settings settings) {
-        Settings createdSettings = settingsService.createSettings(settings);
+    public ResponseEntity<Settings> createSettings(@RequestBody SettingsDto settingsDto) {
+        Settings createdSettings = settingsService.createSettings(settingsDto);
         return ResponseEntity.ok(createdSettings);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Settings> updateSettings(@PathVariable Long id, @RequestBody Settings settings) {
-        Settings updatedSettings = settingsService.updateSettings(id, settings);
+    public ResponseEntity<Settings> updateSettings(@PathVariable Long id, @RequestBody SettingsDto settingsDto) {
+        Settings updatedSettings = settingsService.updateSettings(id, settingsDto);
         if (updatedSettings != null) {
             return ResponseEntity.ok(updatedSettings);
         } else {

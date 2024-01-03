@@ -35,8 +35,8 @@ public class Settings {
     @Column(name = "dinnerPrice", nullable = false)
     private float dinnerPrice;
 
-    public Settings(LocalDateTime createdAt, int minBookingLength, int maxBookingLength, int maxGuestsPerBooking, float breakfastPrice, float dinnerPrice) {
-        this.createdAt = createdAt;
+    public Settings(int minBookingLength, int maxBookingLength, int maxGuestsPerBooking, float breakfastPrice, float dinnerPrice) {
+        this.createdAt = LocalDateTime.now();
         this.minBookingLength = minBookingLength;
         this.maxBookingLength = maxBookingLength;
         this.maxGuestsPerBooking = maxGuestsPerBooking;

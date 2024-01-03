@@ -1,10 +1,10 @@
 package com.example.eclecticretreathaven.web;
 
 import com.example.eclecticretreathaven.model.Accommodations;
+import com.example.eclecticretreathaven.model.dto.AccommodationsDto;
 import com.example.eclecticretreathaven.model.enums.AccommodationTypes;
 import com.example.eclecticretreathaven.service.AccommodationsService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,14 +32,15 @@ public class AccommodationsController {
     }
 
     @PostMapping
-    public ResponseEntity<Accommodations> createAccommodation(@RequestBody Accommodations accommodation) {
-        Accommodations createdAccommodation = accommodationsService.createAccommodation(accommodation);
+    public ResponseEntity<Accommodations> createAccommodation(@RequestBody AccommodationsDto accommodationsDto) {
+
+        Accommodations createdAccommodation = accommodationsService.createAccommodation(accommodationsDto);
         return ResponseEntity.ok(createdAccommodation);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Accommodations> updateAccommodation(@PathVariable Long id, @RequestBody Accommodations accommodation) {
-        Accommodations updatedAccommodation = accommodationsService.updateAccommodation(id, accommodation);
+    public ResponseEntity<Accommodations> updateAccommodation(@PathVariable Long id, @RequestBody AccommodationsDto accommodationsDto) {
+        Accommodations updatedAccommodation = accommodationsService.updateAccommodation(id, accommodationsDto);
         if (updatedAccommodation != null) {
             return ResponseEntity.ok(updatedAccommodation);
         } else {
