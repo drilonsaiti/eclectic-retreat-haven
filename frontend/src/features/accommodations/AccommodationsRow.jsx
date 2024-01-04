@@ -7,6 +7,9 @@ import toast from "react-hot-toast";
 import ButtonGroup from "../../ui/ButtonGroup.jsx";
 import {useState} from "react";
 import CreateAccommodationsForm from "./CreateAccommodationsForm.jsx";
+import {useDeleteAccommodation} from "./useDeleteAccommodation.js";
+import {HiPencil, HiSquare2Stack, HiTrash} from "react-icons/hi2";
+import {useCreateAccommodation} from "./useCreateAccommodation.js";
 
 const TableRow = styled.div`
   display: grid;
@@ -53,19 +56,22 @@ const Discount = styled.div`
 // eslint-disable-next-line react/prop-types
 const AccommodationsRow = ({accommodation}) => {
     const [showForm,setShowForm] = useState(false);
-    const {accommodationId,name,maxCapacity,regularPrice,discount,image,types} = accommodation;
+    const {accommodationId,name,maxCapacity,regularPrice,discount,image,types,description} = accommodation;
 
-    const queryClient = useQueryClient();
-    const {isPending,mutate} = useMutation({
-        mutationFn:  deleteAccommodation,
-        onSuccess: () => {
-            toast.success("Accommodation successfully deleted")
-            queryClient.invalidateQueries({
-                queryKey: ['accommodations'],
-            })
-        },
-        onError: (error) => toast.error(error.message)
-    })
+    const {isCreating,createAccommodation} = useCreateAccommodation();
+    const {isDeleting,deleteMutate} = useDeleteAccommodation();
+
+    function handleDuplicate() {
+        createAccommodation({
+            name: `Copy of ${name}`,
+            maxCapacity,
+            regularPrice,
+            discount,
+            image,
+            types,
+            description,
+        });
+    }
     return (
         <>
         <TableRow role="row">
@@ -75,10 +81,12 @@ const AccommodationsRow = ({accommodation}) => {
             <Price>{formatCurrency(regularPrice)}</Price>
             <Discount>{formatCurrency(discount)}</Discount>
             <ButtonGroup>
-                <Button variation="secondary" onClick={() => setShowForm(!showForm)} disabled={isPending}
-                >Edit</Button>
-                <Button variation="danger" onClick={() => mutate(accommodationId)} disabled={isPending}
-                >Delete</Button>
+                <Button variation="primary" onClick={() => setShowForm(!showForm)} disabled={isDeleting}
+                ><HiPencil/> </Button>
+                <Button variation="secondary" onClick={handleDuplicate} disabled={isCreating}
+                ><HiSquare2Stack/> </Button>
+                <Button variation="danger" onClick={() => deleteMutate(accommodationId)} disabled={isDeleting}
+                > <HiTrash /> </Button>
             </ButtonGroup>
         </TableRow>
 

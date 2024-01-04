@@ -3,8 +3,6 @@
 src/App.jsx,c\0\c0e9e59a467e1546695bfa22746b302540797a4e
 ?
 src/ui/Logo.jsx,1\d\1daf4f7edd68edbb4f5ef2cdb4cb8745af1f0562
-D
-src/pages/Cabins.jsx,1\5\156b46201853e0e5073528b09e3e7e3022bb3059
 =
 .eslintrc.cjs,e\3\e360fad5b6efa2ddba75769ed72a37505224b2ea
 h
@@ -47,3 +45,23 @@ F
 src/ui/ButtonGroup.jsx,b\e\be29e3876280ab9f1a6ab19047f8760c1f98dc52
 k
 ;src/features/accommodations/CreateAccommodationsForm-v1.jsx,0\c\0c395e2f32ecf1417363281946778238be0a8031
+e
+5src/features/accommodations/useDeleteAccommodation.js,0\e\0e1e7145fbf8b1d5391bf3dda4ce7f1a30a9527a
+e
+5src/features/accommodations/useCreateAccommodation.js,f\a\faf0e7ecbaab56aa883564502bd9528a54bed396
+c
+3src/features/accommodations/useEditAccommodation.js,f\6\f6c4e963562cf34ddaf7f9ef81aad481de741990
+`
+0src/features/accommodations/useAccommodations.js,8\2\829145f39f4df5252e25de002d0dc3fc8c5348fc
+K
+src/services/apiSettings.js,6\7\67d6036b123be4d774bfb696fe941ef787a416f7
+\
+,src/features/settings/UpdateSettingsForm.jsx,9\3\93b16e2b0caff84bacb947dac2addd6eeb5cd566
+T
+$src/features/settings/useSettings.js,d\4\d47473d402adc777accd9f91401a52a7a03ed0e4
+F
+src/pages/Settings.jsx,2\3\23d2fee7cd7661bf9d8ce7f629c6922df0955be0
+?
+src/ui/Form.jsx,1\7\1794d54d6d383c24fbfda0d8601f2765a9afa83e
+Z
+*src/features/settings/useUpdateSettings.js,4\5\45ad54c764566a4876e132ccc4fd9fd1c9b7c4d9

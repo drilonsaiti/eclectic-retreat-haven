@@ -1,3 +1,5 @@
 
-tjavascript:S6819*"SUse <table> instead of the "table" role to ensure accessibility across all devices.(ÂØ“¹ýÿÿÿÿ
-jjavascript:S6819+"NUse <tr> instead of the "row" role to ensure accessibility across all devices.(û¦áž
+Kjavascript:S1128"(Remove this unused import of 'useQuery'.(¢Â¦Ù8‚Ê”üÌ1
+Yjavascript:S1128"1Remove this unused import of 'getAccommodations'.(ˆæÛ‘þÿÿÿÿ8‚Ê”üÌ1
+tjavascript:S6819)"SUse <table> instead of the "table" role to ensure accessibility across all devices.(ÂØ“¹ýÿÿÿÿ
+jjavascript:S6819*"NUse <tr> instead of the "row" role to ensure accessibility across all devices.(û¦áž

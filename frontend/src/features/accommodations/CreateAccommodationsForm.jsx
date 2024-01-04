@@ -9,58 +9,38 @@ import FileInput from "../../ui/FileInput";
 import Textarea from "../../ui/Textarea";
 import FormRow from "../../ui/FormRow.jsx";
 import {createEditAccommodation, getAccommodationsTypes} from "../../services/apiAccommodations.js";
+import {useCreateAccommodation} from "./useCreateAccommodation.js";
+import {useEditAccommodation} from "./useEditAccommodation.js";
+import {useAccommodationsTypes} from "./useAccommodations.js";
 
 
 
-function CreateAccommodationsForm({accommodationToEdit ={}}) {
+function CreateAccommodationsForm({accommodationToEdit = {}}) {
     const {accommodationId,...editValues} = accommodationToEdit;
     const isEditSession = Boolean(accommodationId);
     const {register,handleSubmit,reset,getValues,formState} = useForm({
         defaultValues: isEditSession ? editValues : {}
     });
     const {errors} = formState;
-    const {data:typesOptions} = useQuery({
-        queryKey: ['accommodationsTypes'],
-        queryFn: getAccommodationsTypes
-    })
-    const queryClient = useQueryClient();
-    const {mutate:createAccommodation,isPending:isCreating} = useMutation({
-        mutationFn: createEditAccommodation,
-        onSuccess: () => {
-            toast.success("New accommodation successfully created");
-            queryClient.invalidateQueries({
-                queryKey: ['accommodations'],
-            });
-            reset();
-        },
-        onError:(err) => toast.error(err.message)
-    });
 
-    const {mutate:editAccommodation,isPending: isEditing} = useMutation({
-        mutationFn:({newData, id}) => createEditAccommodation(newData,id),
-        onSuccess: () => {
-            toast.success("Accommodation successfully edited");
-            queryClient.invalidateQueries({
-                queryKey: ['accommodations'],
-            });
-            reset();
-        },
-        onError:(err) => toast.error(err.message)
-    });
+    const {typesOptions} = useAccommodationsTypes();
+    const {isCreating,createAccommodation} = useCreateAccommodation();
+   const {isEditing,editAccommodation} = useEditAccommodation();
 
     const isWorking = isCreating || isEditing;
     function onSubmit(data) {
         const image = typeof data.image === 'string' ? data.image : data.image[0];
-        if (isEditSession) editAccommodation({newData: {...data,image:image},id:accommodationId})
-        else createAccommodation({data,image:image});
+        if (isEditSession) editAccommodation({newData: {...data,image:image},id:accommodationId},{
+            onSuccess: () => reset()
+        })
+        else createAccommodation({...data,image:image},{
+            onSuccess: () => reset()
+        });
     }
 
-    function onError(errors) {
-
-    }
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit,onError)}>
+    <Form onSubmit={handleSubmit(onSubmit)}>
       <FormRow label="Accommodation name" error={errors?.name?.message}>
         <Input type="text" disabled={isWorking} id="name" {...register("name",{required:"This field is required"})}/>
       </FormRow>

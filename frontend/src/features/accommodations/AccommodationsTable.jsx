@@ -3,6 +3,7 @@ import {useQuery} from "@tanstack/react-query";
 import {getAccommodations} from "../../services/apiAccommodations.js";
 import Spinner from "../../ui/Spinner.jsx";
 import AccommodationsRow from "./AccommodationsRow.jsx";
+import {useAccommodations} from "./useAccommodations.js";
 
 const Table = styled.div`
   border: 1px solid var(--color-grey-200);
@@ -31,10 +32,8 @@ const TableHeader = styled.header`
 
 
 const AccommodationsTable = () => {
-    const {isPending,data:accommodations} = useQuery({
-        queryKey: ['accommodations'],
-        queryFn: getAccommodations
-    })
+
+    const {isPending,accommodations} = useAccommodations();
 
     if (isPending) return <Spinner/>
 
