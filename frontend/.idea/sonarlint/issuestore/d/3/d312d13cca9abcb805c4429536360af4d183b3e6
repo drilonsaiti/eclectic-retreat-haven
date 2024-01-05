@@ -1,18 +1,14 @@
 
-Sjavascript:S1128"+Remove this unused import of 'useMutation'.(—éúøûÿÿÿÿ8­‘²üÌ1
-Pjavascript:S1128"(Remove this unused import of 'useQuery'.(—éúøûÿÿÿÿ8­‘²üÌ1
-Vjavascript:S1128".Remove this unused import of 'useQueryClient'.(—éúøûÿÿÿÿ8­‘²üÌ1
-Vjavascript:S1128"3Remove this unused import of 'deleteAccommodation'.(Ğ”Öì8­‘²üÌ1
-Tjavascript:S1128"1Remove this unused import of 'getAccommodations'.(Ğ”Öì8­‘²üÌ1
-Yjavascript:S1128"6Remove this unused import of 'getAccommodationsTypes'.(Ğ”Öì8­‘²üÌ1
-Hjavascript:S1128"%Remove this unused import of 'toast'.(²È8­‘²üÌ1
-Vjavascript:S67749".'accommodation' is missing in props validation(­êğ–şÿÿÿÿ8­‘²üÌ1
-ajavascript:S6774;">'accommodation.accommodationId' is missing in props validation(¾µöä8­‘²üÌ1
-Vjavascript:S6774;"3'accommodation.name' is missing in props validation(¾µöä8®‘²üÌ1
-]javascript:S6774;":'accommodation.maxCapacity' is missing in props validation(¾µöä8®‘²üÌ1
-^javascript:S6774;";'accommodation.regularPrice' is missing in props validation(¾µöä8®‘²üÌ1
-Zjavascript:S6774;"7'accommodation.discount' is missing in props validation(¾µöä8®‘²üÌ1
-Wjavascript:S6774;"4'accommodation.image' is missing in props validation(¾µöä8®‘²üÌ1
-Wjavascript:S6774;"4'accommodation.types' is missing in props validation(¾µöä8®‘²üÌ1
-]javascript:S6774;":'accommodation.description' is missing in props validation(¾µöä8Ÿò¼üÌ1
-qjavascript:S6819M"NUse <tr> instead of the "row" role to ensure accessibility across all devices.(Ù³Æâ8®‘²üÌ1
+Sjavascript:S1128"+Remove this unused import of 'ButtonGroup'.(ƒµà‡ÿÿÿÿÿ8Ÿ¨ÏÍ1
+Vjavascript:S6774.".'accommodation' is missing in props validation(­êğ–şÿÿÿÿ8Í­‡ÏÍ1
+ajavascript:S6774/">'accommodation.accommodationId' is missing in props validation(¾µöä8Í­‡ÏÍ1
+Vjavascript:S6774/"3'accommodation.name' is missing in props validation(¾µöä8Í­‡ÏÍ1
+]javascript:S6774/":'accommodation.maxCapacity' is missing in props validation(¾µöä8Í­‡ÏÍ1
+^javascript:S6774/";'accommodation.regularPrice' is missing in props validation(¾µöä8Í­‡ÏÍ1
+Zjavascript:S6774/"7'accommodation.discount' is missing in props validation(¾µöä8Í­‡ÏÍ1
+Wjavascript:S6774/"4'accommodation.image' is missing in props validation(¾µöä8Í­‡ÏÍ1
+Wjavascript:S6774/"4'accommodation.types' is missing in props validation(¾µöä8Î­‡ÏÍ1
+]javascript:S6774/":'accommodation.description' is missing in props validation(¾µöä8Î­‡ÏÍ1
+^javascript:S14811";Remove the declaration of the unused 'isCreating' variable.(”ŞÕê8Î­‡ÏÍ1
+[javascript:S18541"8Remove this useless assignment to variable "isCreating".(”ŞÕê8Î­‡ÏÍ1
+pjavascript:S6819@"NUse <tr> instead of the "row" role to ensure accessibility across all devices.( è¬8Î­‡ÏÍ1

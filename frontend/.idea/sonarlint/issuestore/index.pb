@@ -43,8 +43,6 @@ A
 src/ui/Button.jsx,7\6\76d631cbf30aa6a1dce3dcdc361fbd77ae6a3958
 F
 src/ui/ButtonGroup.jsx,b\e\be29e3876280ab9f1a6ab19047f8760c1f98dc52
-k
-;src/features/accommodations/CreateAccommodationsForm-v1.jsx,0\c\0c395e2f32ecf1417363281946778238be0a8031
 e
 5src/features/accommodations/useDeleteAccommodation.js,0\e\0e1e7145fbf8b1d5391bf3dda4ce7f1a30a9527a
 e
@@ -65,3 +63,17 @@ F
 src/ui/Form.jsx,1\7\1794d54d6d383c24fbfda0d8601f2765a9afa83e
 Z
 *src/features/settings/useUpdateSettings.js,4\5\45ad54c764566a4876e132ccc4fd9fd1c9b7c4d9
+@
+src/ui/Modal.jsx,7\f\7f7bdd3be0b600760d4d31af24b9062190a2aa4c
+`
+0src/features/accommodations/AddAccommodation.jsx,1\5\15746d5a014b2ff9312492fc3c5370f5bcdc9934
+H
+src/hooks/useMoveBack.js,c\7\c7b1e9552912ef2fc2095eb08ec7b45f0f6cbfec
+L
+src/hooks/useOutsideClick.js,e\0\e088fb86333e05bde2d993de35b3c826404ad421
+H
+src/ui/ConfirmDelete.jsx,3\f\3f20a1f5ef32121ce59cfee0303a2798a8286cdb
+B
+src/ui/Heading.jsx,2\b\2b69a521185083ed8547ac0ec1dd519976ec0d2d
+@
+src/ui/Table.jsx,0\2\0283370d1c1b0264aa81d29e7639d7d3165a2c95

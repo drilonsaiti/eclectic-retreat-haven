@@ -15,7 +15,7 @@ import {useAccommodationsTypes} from "./useAccommodations.js";
 
 
 
-function CreateAccommodationsForm({accommodationToEdit = {}}) {
+function CreateAccommodationsForm({accommodationToEdit = {},onCloseModal}) {
     const {accommodationId,...editValues} = accommodationToEdit;
     const isEditSession = Boolean(accommodationId);
     const {register,handleSubmit,reset,getValues,formState} = useForm({
@@ -31,16 +31,23 @@ function CreateAccommodationsForm({accommodationToEdit = {}}) {
     function onSubmit(data) {
         const image = typeof data.image === 'string' ? data.image : data.image[0];
         if (isEditSession) editAccommodation({newData: {...data,image:image},id:accommodationId},{
-            onSuccess: () => reset()
+            onSuccess: () => {
+                reset();
+                onCloseModal?.();
+            }
+
         })
         else createAccommodation({...data,image:image},{
-            onSuccess: () => reset()
+            onSuccess: () => {
+                reset();
+                onCloseModal?.();
+            }
         });
     }
 
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <Form onSubmit={handleSubmit(onSubmit)} type={onCloseModal ? 'modal' : 'regular'}>
       <FormRow label="Accommodation name" error={errors?.name?.message}>
         <Input type="text" disabled={isWorking} id="name" {...register("name",{required:"This field is required"})}/>
       </FormRow>
@@ -89,7 +96,7 @@ function CreateAccommodationsForm({accommodationToEdit = {}}) {
 
       <FormRow>
 
-        <Button variation="secondary" type="reset">
+        <Button onClick={() => onCloseModal?.()} variation="secondary" type="reset">
           Cancel
         </Button>
         <Button disabled={isWorking}>{isEditSession ? "Edit accommodation" : "Add accommodation"}</Button>
