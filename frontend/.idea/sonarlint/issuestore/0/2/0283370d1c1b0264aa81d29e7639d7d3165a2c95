@@ -1,0 +1,13 @@
+
+Pjavascript:S6774@"('columns' is missing in props validation(ÛÆĞıÿÿÿÿ8çµëÆÍ1
+Qjavascript:S6774@")'children' is missing in props validation(ÛÆĞıÿÿÿÿ8èµëÆÍ1
+®javascript:S6481B"…The object passed as the value prop to the Context provider changes every render. To fix this consider wrapping it in a useMemo hook.(Õ„Ğ¡ùÿÿÿÿ8¥à†ÇÍ1
+{javascript:S6819C"SUse <table> instead of the "table" role to ensure accessibility across all devices.(Ó§èûÿÿÿÿ8èµëÆÍ1
+Qjavascript:S6774L")'children' is missing in props validation(˜§Ïõúÿÿÿÿ8èµëÆÍ1
+vjavascript:S6819N"NUse <tr> instead of the "row" role to ensure accessibility across all devices.(—˜“¡üÿÿÿÿ8èµëÆÍ1
+Ljavascript:S6774R")'children' is missing in props validation(µ“ ¾8èµëÆÍ1
+pjavascript:S6819T"NUse <tr> instead of the "row" role to ensure accessibility across all devices.(‚”‰h8èµëÆÍ1
+Hjavascript:S6774X"%'data' is missing in props validation(îÑ¶8èµëÆÍ1
+Jjavascript:S6774X"''render' is missing in props validation(îÑ¶8èµëÆÍ1
+Tjavascript:S6774Y",'data.length' is missing in props validation(®ï±Ïùÿÿÿÿ8¼ÆıÆÍ1
+Ljavascript:S6774[")'data.map' is missing in props validation(‹Â—é8èµëÆÍ1

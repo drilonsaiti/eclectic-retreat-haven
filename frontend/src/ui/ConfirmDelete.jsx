@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Button from "./Button";
 import Heading from "./Heading";
+import ButtonGroup from "./ButtonGroup.jsx";
 
 const StyledConfirmDelete = styled.div`
   width: 40rem;
@@ -20,8 +21,10 @@ const StyledConfirmDelete = styled.div`
   }
 `;
 
-function ConfirmDelete({ resource, onConfirm, disabled, closeModal }) {
-  function handleConfirmClick() {}
+function ConfirmDelete({ resource, onConfirm, disabled, onCloseModal }) {
+  function handleConfirmClick() {
+      onConfirm();
+  }
 
   return (
     <StyledConfirmDelete>
@@ -31,8 +34,8 @@ function ConfirmDelete({ resource, onConfirm, disabled, closeModal }) {
         cannot be undone.
       </p>
 
-      <div>
-        <Button variation="secondary" onClick={closeModal}>
+      <ButtonGroup>
+        <Button variation="secondary" onClick={onCloseModal}>
           Cancel
         </Button>
         <Button
@@ -42,7 +45,7 @@ function ConfirmDelete({ resource, onConfirm, disabled, closeModal }) {
         >
           Delete
         </Button>
-      </div>
+      </ButtonGroup>
     </StyledConfirmDelete>
   );
 }
