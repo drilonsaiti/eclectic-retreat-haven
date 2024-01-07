@@ -14,7 +14,6 @@ export async function getAccommodations() {
 
 export async function createEditAccommodation(newAccommodation, id) {
     const hasImagePath = !!newAccommodation?.image?.startsWith?.(supabaseUrl);
-
     const imageName = `${Math.floor((Math.random() * 100 - 1 + 1) + 1)}-${newAccommodation.image.name}`.replaceAll("/", "");
     const imagePath = hasImagePath ? newAccommodation.image : `https://tfuqnepvvdeiwssgclxl.supabase.co/storage/v1/object/public/accommodations/${imageName}`
 

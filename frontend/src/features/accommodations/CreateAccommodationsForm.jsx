@@ -12,6 +12,7 @@ import {createEditAccommodation, getAccommodationsTypes} from "../../services/ap
 import {useCreateAccommodation} from "./useCreateAccommodation.js";
 import {useEditAccommodation} from "./useEditAccommodation.js";
 import {useAccommodationsTypes} from "./useAccommodations.js";
+import {useEffect, useState} from "react";
 
 
 
@@ -22,19 +23,30 @@ function CreateAccommodationsForm({accommodationToEdit = {},onCloseModal}) {
         defaultValues: isEditSession ? editValues : {}
     });
     const {errors} = formState;
+    const [refreshKey, setRefreshKey] = useState(0);
+
+    useEffect(() => {
+        // Do something that triggers the need to refresh Select
+        // For example, after editing an item
+        setRefreshKey((prevKey) => prevKey + 1);
+    },[]);
 
     const {typesOptions} = useAccommodationsTypes();
+
     const {isCreating,createAccommodation} = useCreateAccommodation();
    const {isEditing,editAccommodation} = useEditAccommodation();
+
+   console.log(getValues('types'));
 
     const isWorking = isCreating || isEditing;
     function onSubmit(data) {
         const image = typeof data.image === 'string' ? data.image : data.image[0];
+
         if (isEditSession) editAccommodation({newData: {...data,image:image},id:accommodationId},{
             onSuccess: () => {
                 reset();
                 onCloseModal?.();
-            }
+            },
 
         })
         else createAccommodation({...data,image:image},{
@@ -76,12 +88,8 @@ function CreateAccommodationsForm({accommodationToEdit = {},onCloseModal}) {
       </FormRow>
 
         <FormRow label="Type" error={errors?.types?.message}>
-            <Select type="white" disabled={isWorking} id="types" {...register("types",{required:"This field is required"})}>
-                {typesOptions?.map(type => (
-                    <option key={type} value={type}>
-                        {type}
-                    </option>
-                ))}
+            <Select key={refreshKey} value={getValues('types')} type="white" options={typesOptions} disabled={isWorking} id="types" {...register("types",{required:"This field is required"})}>
+
             </Select>
         </FormRow>
 
