@@ -16,13 +16,10 @@ import { useMoveBack } from 'hooks/useMoveBack';
 import { useCheckin } from './useCheckin';
 
 import styled from 'styled-components';
-import { box } from 'styles/styles';
 import { useSettings } from 'features/settings/useSettings';
+import Box from "../../ui/Box.jsx";
 
-const Box = styled.div`
-  ${box}
-  padding: 2.4rem 4rem;
-`;
+
 
 function CheckinBooking() {
   const [confirmPaid, setConfirmPaid] = useState(false);

@@ -10,6 +10,7 @@ import Modal from "../../ui/Modal.jsx";
 import ConfirmDelete from "../../ui/ConfirmDelete.jsx";
 import Table from "../../ui/Table";
 import Menus from "../../ui/Menus.jsx";
+import CreateBookingsForm from "../bookings/CreateBookingsForm.jsx";
 
 
 
@@ -69,6 +70,10 @@ const AccommodationsRow = ({accommodation}) => {
             <Discount>{formatCurrency(discount)}</Discount>
 
                 <Modal>
+                    <ButtonGroup>
+                    <Modal.Open opens="book">
+                        <Button>Book now</Button>
+                    </Modal.Open>
                     <Menus.Menu>
                         <Menus.Toggle id={accommodationId} />
                         <Menus.List id={accommodationId}>
@@ -83,8 +88,13 @@ const AccommodationsRow = ({accommodation}) => {
                         </Menus.List>
                     </Menus.Menu>
 
+                    </ButtonGroup>
+                    <Modal.Window name="book">
+                        <CreateBookingsForm accommodationId={accommodationId}/>
+                    </Modal.Window>
+
                     <Modal.Window name="edit">
-                        <CreateAccommodationsForm accommodationToEdit={accommodation}/>
+                        <CreateAccommodationsForm accommodationToEdit={accommodation} />
                     </Modal.Window>
 
                     <Modal.Window name="delete">

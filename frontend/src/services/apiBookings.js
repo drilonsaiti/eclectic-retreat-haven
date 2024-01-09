@@ -1,39 +1,55 @@
-import { getToday } from "../utils/helpers";
+import {getToday, PAGE_SIZE} from "../utils/helpers";
 import supabase from "./supabase";
 
-export async function getBooking(id) {
-  const { data, error } = await supabase
-    .from("bookings")
-    .select("*, cabins(*), guests(*)")
-    .eq("id", id)
-    .single();
+import axios from "axios";
 
-  if (error) {
+export async function getBookings({page}) {
+  try {
+
+    const response = await axios.get(`http://localhost:9092/api/bookings?page=${page}`);
+    console.log("DATA",response.data);
+    return {
+      content: response.data.content,
+      totalElements: response.data.totalElements
+    };
+  } catch (error) {
     console.error(error);
-    throw new Error("Booking not found");
+    throw new Error('Bookings could not be loaded');
   }
+}
 
-  return data;
+export async function createBookingApi(newBooking) {
+  try {
+    const response = await axios.post('http://localhost:9092/api/bookings',newBooking.data);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw new Error('Bookings could not be created');
+  }
+}
+
+
+export async function getBooking(id) {
+  try {
+    const response = await axios.get(`http://localhost:9092/api/bookings/${id}`);
+    return response.data;
+  } catch (error) {
+    throw new Error('Settings could not be loaded');
+  }
 }
 
 // Returns all BOOKINGS that are were created after the given date. Useful to get bookings created in the last 30 days, for example.
 export async function getBookingsAfterDate(date) {
-  const { data, error } = await supabase
-    .from("bookings")
-    .select("created_at, totalPrice, extrasPrice")
-    .gte("created_at", date)
-    .lte("created_at", getToday({ end: true }));
-
-  if (error) {
-    console.error(error);
-    throw new Error("Bookings could not get loaded");
+  try {
+    const response = await axios.get(`http://localhost:9092/api/bookings/${date}`);
+    return response.data;
+  } catch (error) {
+    throw new Error('Settings could not be loaded');
   }
-
-  return data;
 }
 
 // Returns all STAYS that are were created after the given date
-export async function getStaysAfterDate(date) {
+export async function getStatusAfterDate(date) {
   const { data, error } = await supabase
     .from("bookings")
     // .select('*')

@@ -36,7 +36,6 @@ function CreateAccommodationsForm({accommodationToEdit = {},onCloseModal}) {
     const {isCreating,createAccommodation} = useCreateAccommodation();
    const {isEditing,editAccommodation} = useEditAccommodation();
 
-   console.log(getValues('types'));
 
     const isWorking = isCreating || isEditing;
     function onSubmit(data) {
