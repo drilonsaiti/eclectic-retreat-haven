@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity
-@NoArgsConstructor
 @Table(name = "Bookings")
 public class Bookings {
 
@@ -17,35 +16,44 @@ public class Bookings {
     @Column(name = "booking_id")
     private Long bookingId;
 
-    @Column(name = "startDate", nullable = false)
+    @Column(name = "createdAt")
+    private LocalDateTime createdAt;
+
+    @Column(name = "startDate")
     private LocalDateTime startDate;
 
-    @Column(name = "endDate", nullable = false)
+    @Column(name = "endDate")
     private LocalDateTime endDate;
 
-    @Column(name = "numNights", nullable = false)
+    @Column(name = "numNights")
     private int numNights;
 
-    @Column(name = "price", nullable = false)
+    @Column(name = "numGuets")
+    private int numGuests;
+
+    @Column(name = "price")
     private float price;
 
-    @Column(name = "extrasPrice", nullable = false)
+    @Column(name = "extrasPrice")
     private float extrasPrice;
 
-    @Column(name = "totalPrice", nullable = false)
+    @Column(name = "totalPrice")
     private float totalPrice;
 
-    @Column(name = "status", nullable = false)
+    @Column(name = "status")
     private String status;
 
-    @Column(name = "hasBreakfast", nullable = false)
+    @Column(name = "hasBreakfast")
     private boolean hasBreakfast;
 
-    @Column(name = "hasDinner", nullable = false)
+    @Column(name = "hasDinner")
     private boolean hasDinner;
 
-    @Column(name = "observations", nullable = false)
+    @Column(name = "observations")
     private String observations;
+
+    @Column(name = "isPaid")
+    private boolean isPaid;
 
     @ManyToOne
     @JoinColumn(name = "guests_id")
@@ -55,10 +63,25 @@ public class Bookings {
     @JoinColumn(name = "accommodations_id")
     private Accommodations accommodations;
 
-    public Bookings(LocalDateTime startDate, LocalDateTime endDate, int numNights, float price, float extrasPrice, float totalPrice, String status, boolean hasBreakfast, boolean hasDinner, String observations, Guests guests, Accommodations accommodations) {
+    public Bookings() {
+        this.createdAt = LocalDateTime.now();
+        this.status =  "unconfirmed";
+        this.hasBreakfast = false;
+        this.hasDinner = false;
+        this.extrasPrice = 0;
+        this.totalPrice = 0;
+        this.isPaid = false;
+
+    }
+
+    public Bookings(LocalDateTime startDate, LocalDateTime endDate,
+                    int numNights, int numGuests, float price, float extrasPrice, float totalPrice, String status, boolean hasBreakfast,
+                    boolean hasDinner, String observations, Guests guests, Accommodations accommodations) {
+        this.createdAt = LocalDateTime.now();
         this.startDate = startDate;
         this.endDate = endDate;
         this.numNights = numNights;
+        this.numGuests = numGuests;
         this.price = price;
         this.extrasPrice = extrasPrice;
         this.totalPrice = totalPrice;

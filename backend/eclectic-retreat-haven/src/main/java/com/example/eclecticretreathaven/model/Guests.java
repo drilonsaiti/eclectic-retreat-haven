@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @Table(name = "Guests")
-@NoArgsConstructor
 public class Guests {
 
     @Id
@@ -15,21 +14,25 @@ public class Guests {
     @Column(name = "guest_id")
     private Long guestId;
 
-    @Column(name = "fullName", nullable = false)
+    @Column(name = "fullName" )
     private String fullName;
 
-    @Column(name = "email", nullable = false)
+    @Column(name = "email")
     private String email;
 
-    @Column(name = "nationalID", nullable = false)
+    @Column(name = "nationalID")
     private String nationalID;
 
-    @Column(name = "nationality", nullable = false)
+    @Column(name = "nationality")
     private String nationality;
 
-    @Column(name = "countryFlag", nullable = false)
+    @Column(name = "countryFlag")
     private String countryFlag;
 
+    public Guests() {
+        this.nationalID = "";
+        this.countryFlag = "";
+    }
 
     public Guests(String fullName, String email, String nationalID, String nationality, String countryFlag) {
         this.fullName = fullName;
