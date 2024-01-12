@@ -1,0 +1,13 @@
+
+Vjavascript:S6774/".'accommodation' is missing in props validation(­êğ–şÿÿÿÿ8Í­‡ÏÍ1
+ajavascript:S67740">'accommodation.accommodationId' is missing in props validation(¾µöä8Í­‡ÏÍ1
+Vjavascript:S67740"3'accommodation.name' is missing in props validation(¾µöä8Í­‡ÏÍ1
+]javascript:S67740":'accommodation.maxCapacity' is missing in props validation(¾µöä8Í­‡ÏÍ1
+^javascript:S67740";'accommodation.regularPrice' is missing in props validation(¾µöä8Í­‡ÏÍ1
+Zjavascript:S67740"7'accommodation.discount' is missing in props validation(¾µöä8Í­‡ÏÍ1
+Wjavascript:S67740"4'accommodation.image' is missing in props validation(¾µöä8Í­‡ÏÍ1
+Wjavascript:S67740"4'accommodation.types' is missing in props validation(¾µöä8Î­‡ÏÍ1
+]javascript:S67740":'accommodation.description' is missing in props validation(¾µöä8Î­‡ÏÍ1
+^javascript:S14812";Remove the declaration of the unused 'isCreating' variable.(”ŞÕê8Î­‡ÏÍ1
+[javascript:S18542"8Remove this useless assignment to variable "isCreating".(”ŞÕê8Î­‡ÏÍ1
+pjavascript:S6819A"NUse <tr> instead of the "row" role to ensure accessibility across all devices.( è¬8Î­‡ÏÍ1
