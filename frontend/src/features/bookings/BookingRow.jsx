@@ -7,33 +7,18 @@ import {
   HiArrowUpOnSquare,
   HiArrowDownOnSquare,
 } from 'react-icons/hi2';
+import Menus from "../../ui/Menus.jsx";
+import Table from "../../ui/Table.jsx";
+import {format, isToday} from "date-fns";
+import {formatCurrency, formatDistanceFromNow} from "../../utils/helpers.js";
+import Tag from "../../ui/Tag.jsx";
+import Modal from "../../ui/Modal.jsx";
+import ConfirmDelete from "../../ui/ConfirmDelete.jsx";
+import {useDeleteBooking} from "./useDeleteBooking.js";
+import {useCheckout} from "../check-in-out/useCheckout.js";
 
-import Tag from 'ui/Tag';
-import Menus from 'ui/Menus';
-import Modal from 'ui/Modal';
-import ConfirmDelete from 'ui/ConfirmDelete';
-import Table from 'ui/Table';
 
-import { useDeleteBooking } from 'features/bookings/useDeleteBooking';
-import { formatCurrency } from 'utils/helpers';
-import { formatDistanceFromNow } from 'utils/helpers';
-import { useCheckout } from 'features/check-in-out/useCheckout';
-import { format, isToday } from 'date-fns';
-
-// v1
-// const TableRow = styled.div`
-//   display: grid;
-//   grid-template-columns: 0.6fr 1.8fr 2.2fr 1fr 1fr 1fr;
-//   column-gap: 2.4rem;
-//   align-items: center;
-//   padding: 1.4rem 2.4rem;
-
-//   &:not(:last-child) {
-//     border-bottom: 1px solid var(--color-grey-100);
-//   }
-// `;
-
-const Cabin = styled.div`
+const Accomm = styled.div`
   font-size: 1.6rem;
   font-weight: 600;
   color: var(--color-grey-600);
@@ -62,38 +47,41 @@ const Amount = styled.div`
 
 function BookingRow({
   booking: {
-    id: bookingId,
-    created_at,
+    id:bookingId,
+    createdAt,
     startDate,
     endDate,
     numNights,
     numGuests,
     totalPrice,
+      types,
     status,
-    guests: { fullName: guestName, email },
-    cabins: { name: cabinName },
+    guestFullName: guestName,
+    guestEmail,
+    accommodationName: accommName
   },
 }) {
-  const { mutate: deleteBooking, isLoading: isDeleting } = useDeleteBooking();
-  const { mutate: checkout, isLoading: isCheckingOut } = useCheckout();
+  const {deleteMutate, isLoading: isDeleting } = useDeleteBooking();
+  const { mutate: checkout, isCheckingOut } = useCheckout();
 
   const navigate = useNavigate();
 
-  // We will not allow editing at this point, as it's too complex for bookings... People just need to delete a booking and create a new one
-
+console.log(bookingId);
   const statusToTagName = {
     unconfirmed: 'blue',
     'checked-in': 'green',
     'checked-out': 'silver',
   };
 
+  console.log("NAME: " + accommName);
   return (
     <Table.Row role='row'>
-      <Cabin>{cabinName}</Cabin>
+      <Accomm>{accommName}</Accomm>
+
 
       <Stacked>
         <span>{guestName}</span>
-        <span>{email}</span>
+        <span>{guestEmail}</span>
       </Stacked>
 
       <Stacked>
@@ -113,7 +101,6 @@ function BookingRow({
 
       <Amount>{formatCurrency(totalPrice)}</Amount>
 
-      {/* VIDEO we could export this into own component... */}
       <Modal>
         <Menus.Menu>
           <Menus.Toggle id={bookingId} />
@@ -136,8 +123,12 @@ function BookingRow({
 
             {status === 'checked-in' && (
               <Menus.Button
-                onClick={() => checkout(bookingId)}
+                onClick={() => {
+                  console.log("CHECKED OUT: ",bookingId)
+                  checkout(bookingId);
+                }}
                 disabled={isCheckingOut}
+
                 icon={<HiArrowUpOnSquare />}
               >
                 Check out
@@ -145,39 +136,23 @@ function BookingRow({
             )}
 
             <Menus.Button icon={<HiPencil />}>Edit booking</Menus.Button>
-            {/* <Menus.Button>Delete</Menus.Button> */}
 
-            {/* Now it gets a bit confusing... */}
-            <Modal.Toggle opens='delete'>
+            <Modal.Open opens='delete'>
               <Menus.Button icon={<HiTrash />}>Delete booking</Menus.Button>
-            </Modal.Toggle>
+            </Modal.Open>
           </Menus.List>
         </Menus.Menu>
 
-        {/* This needs to be OUTSIDE of the menu, which in no problem. The compound component gives us this flexibility */}
+
         <Modal.Window name='delete'>
           <ConfirmDelete
             resource='booking'
-            // These options will be passed wherever the function gets called, and they determine what happens next
-            onConfirm={(options) => deleteBooking(bookingId, options)}
+            onConfirm={(options) => deleteMutate(bookingId, options)}
             disabled={isDeleting}
           />
         </Modal.Window>
       </Modal>
 
-      {/* <div>
-        <ButtonWithConfirm
-          title='Delete booking'
-          description='Are you sure you want to delete this booking? This action can NOT be undone.'
-          confirmBtnLabel='Delete'
-          onConfirm={() => deleteBooking(bookingId)}
-          disabled={isDeleting}
-        >
-          Delete
-        </ButtonWithConfirm>
-
-        <Link to={`/bookings/${bookingId}`}>Details &rarr;</Link>
-      </div> */}
     </Table.Row>
   );
 }

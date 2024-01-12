@@ -18,11 +18,6 @@ const AccommodationTableOperations = () => {
                 {value: 'no-discount', label: "No discount"},
                 ]
         },
-        status: {
-            field: "Status",
-            optionsFiled: [{value: 'available', label: "Available"},
-                {value: 'no-available', label: "No available"}]
-        },
     }
 
     const optionsSort = [

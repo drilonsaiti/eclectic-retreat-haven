@@ -52,6 +52,14 @@ const Button = styled.button`
   border: none;
   border-radius: var(--border-radius-sm);
   box-shadow: var(--shadow-sm);
+  
+  ${(props) =>
+    props.notFound &&
+    css`
+      display: flex;
+      align-items: center;
+      margin: 0 auto;
+    `}
 
   ${(props) => sizes[props.size]}
   ${(props) => variations[props.variation]}
