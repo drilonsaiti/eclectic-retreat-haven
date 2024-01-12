@@ -12,6 +12,8 @@ public class CreateBookingDto {
     private String fullName;
     private String email;
     private String nationality;
+    private String nationalID;
+    private String countryFlag;
     private String startDate;
     private int numNights;
     private int numGuests;

@@ -3,12 +3,15 @@ package com.example.eclecticretreathaven.model;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalDateTime;
 
 @Data
 @Entity
 @Table(name = "Bookings")
+@OnDelete(action = OnDeleteAction.CASCADE)
 public class Bookings {
 
     @Id
@@ -55,7 +58,7 @@ public class Bookings {
     @Column(name = "isPaid")
     private boolean isPaid;
 
-    @ManyToOne
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "guests_id")
     private Guests guests;
 

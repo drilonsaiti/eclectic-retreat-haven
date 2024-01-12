@@ -2,7 +2,9 @@ package com.example.eclecticretreathaven.web;
 
 import com.example.eclecticretreathaven.model.Bookings;
 import com.example.eclecticretreathaven.model.dto.BookingDTO;
+import com.example.eclecticretreathaven.model.dto.BookingDetailsDto;
 import com.example.eclecticretreathaven.model.dto.CreateBookingDto;
+import com.example.eclecticretreathaven.model.dto.UpdateBookingDto;
 import com.example.eclecticretreathaven.service.BookingsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageImpl;
@@ -29,17 +31,21 @@ public class BookingsController {
     }*/
 
     @GetMapping
-    public Page<BookingDTO> getAllBookings(@RequestParam(defaultValue = "0") int page) {
+    public Page<BookingDTO> getAllBookings(@RequestParam(defaultValue = "0") int page,
+                                           @RequestParam(defaultValue = "all") String types,
+                                           @RequestParam(defaultValue = "all") String status,
+                                           @RequestParam(defaultValue = "startDate-asc") String sort) {
         PageRequest pageable = PageRequest.of(page - 1, PAGE_SIZE);
-        List<BookingDTO> bookingDTOList = bookingsService.getAllBookings(pageable);
 
-        long totalElements = bookingsService.getTotalBookingsCount();
+        List<BookingDTO> bookingDTOList = bookingsService.getAllBookings(pageable,types,status,sort);
+
+        long totalElements = bookingsService.getTotalBookingsCount(types,status);
 
         return new PageImpl<>(bookingDTOList, pageable, totalElements);
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Bookings> getBookingById(@PathVariable Long id) {
-        Bookings booking = bookingsService.getBookingById(id);
+    public ResponseEntity<BookingDetailsDto> getBookingById(@PathVariable Long id) {
+        BookingDetailsDto booking = bookingsService.getBookingById(id);
         return ResponseEntity.ok(booking);
     }
 
@@ -50,7 +56,7 @@ public class BookingsController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Bookings> updateBooking(@PathVariable Long id, @RequestBody Bookings booking) {
+    public ResponseEntity<Bookings> updateBooking(@PathVariable Long id, @RequestBody UpdateBookingDto booking) {
         Bookings updatedBooking = bookingsService.updateBooking(id, booking);
         if (updatedBooking != null) {
             return ResponseEntity.ok(updatedBooking);

@@ -5,7 +5,10 @@ import com.example.eclecticretreathaven.model.Bookings;
 import com.example.eclecticretreathaven.model.Guests;
 import com.example.eclecticretreathaven.model.Settings;
 import com.example.eclecticretreathaven.model.dto.BookingDTO;
+import com.example.eclecticretreathaven.model.dto.BookingDetailsDto;
 import com.example.eclecticretreathaven.model.dto.CreateBookingDto;
+import com.example.eclecticretreathaven.model.dto.UpdateBookingDto;
+import com.example.eclecticretreathaven.model.enums.AccommodationTypes;
 import com.example.eclecticretreathaven.model.mapper.BookingMapper;
 import com.example.eclecticretreathaven.model.mapper.GuestsMapper;
 import com.example.eclecticretreathaven.repository.AccommodationsRepository;
@@ -19,7 +22,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 @Service
 @AllArgsConstructor
@@ -37,27 +42,67 @@ public class BookingsServiceImpl implements BookingsService {
 
 
 
-    @Override
-    public List<BookingDTO> getAllBookings(PageRequest pageable) {
+    public List<BookingDTO> getAllBookings(PageRequest pageable, String types, String status, String sort) {
+        List<Bookings> bookings = bookingsRepository.findAll();
 
-        return bookingsRepository.findAll(pageable).stream().map(bookings ->
-            mapper.mapEntityToDTO(null, bookings )
-        ).toList();
+        List<BookingDTO> result = bookings.stream()
+                .filter(booking -> (types.equals("all") || booking.getAccommodations().getTypes().label.equalsIgnoreCase(types.replace("_", " ")))
+                        && (status.equals("all") || (status.equals("checked-out") && booking.getStatus().equals("checked-out"))
+                        || (status.equals("checked-in") && booking.getStatus().equals("checked-in"))
+                        || (status.equals("unconfirmed") && booking.getStatus().equals("unconfirmed"))))
+                .sorted((a, b) -> {
+                    String[] sortBy = sort.split("-");
+                    String field = sortBy[0];
+                    String direction = sortBy[1];
+                    Comparable fieldA = getFieldValue(a, field);
+                    Comparable fieldB = getFieldValue(b, field);
+
+                    return direction.equals("asc") ? fieldA.compareTo(fieldB) : fieldB.compareTo(fieldA);
+                })
+                .skip(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .map(booking -> mapper.mapEntityToDTO(null, booking))
+                .toList();
+
+        return result;
     }
 
-    public long getTotalBookingsCount() {
+    public Comparable getFieldValue(Bookings booking, String field) {
+        switch (field) {
+            case "startDate":
+                return booking.getStartDate();
+            case "totalPrice":
+                return booking.getTotalPrice();
+            default:
+                throw new IllegalArgumentException("Invalid field for sorting: " + field);
+        }
+    }
+    public long getTotalBookingsCount(String types, String status) {
+        if (types.isEmpty() || status.isEmpty())
+            return bookingsRepository.count();
+        AccommodationTypes accommodationTypes = ( !types.equals("all")) ?
+                AccommodationTypes.fromLabelIgnoreCase(types.replace("_", " ")) : null;
+        if (!types.equals("all") && !status.equals("all"))
+            return this.bookingsRepository.countFilteredBookings(accommodationTypes,status);
+        else if (!types.equals("all"))
+            return this.bookingsRepository.countFilteredBookings(accommodationTypes,"");
+       else if ( !status.equals("all"))
+            return this.bookingsRepository.countFilteredBookings(null,status);
+
+
         return bookingsRepository.count();
+
     }
 
     @Override
-    public Bookings getBookingById(Long id) {
-        return bookingsRepository.findById(id).orElse(null);
+    public BookingDetailsDto getBookingById(Long id) {
+        return bookingsRepository.findById(id).map(mapper::toBookingDetailsDto).orElse(null);
     }
 
     @Override
     public Bookings createBooking(CreateBookingDto dto) throws ParseException {
         System.out.println(dto);
-        Guests guests = guestsMapper.createGuest(dto.getFullName(),dto.getEmail(), dto.getNationality());
+        Guests guests = guestsMapper.createGuest(dto.getFullName(),dto.getEmail(), dto.getNationality(), dto.getNationalID(), dto.getCountryFlag());
         this.guestsRepository.save(guests);
         Accommodations accm = this.accommodationsRepository.findById(dto.getAccommodationId()).orElseThrow();
         Settings settings = this.settingsRepository.findById(1L).orElseThrow();
@@ -66,17 +111,22 @@ public class BookingsServiceImpl implements BookingsService {
     }
 
     @Override
-    public Bookings updateBooking(Long id, Bookings booking) {
+    public Bookings updateBooking(Long id, UpdateBookingDto booking) {
         if (bookingsRepository.existsById(id)) {
-            booking.setBookingId(id);
-            return bookingsRepository.save(booking);
+            Bookings bookings = this.bookingsRepository.findById(id).orElseThrow();
+            bookings= mapper.updateBookingForCheckin(booking,bookings);
+            return bookingsRepository.save(bookings);
         }
         return null;
     }
 
     @Override
     public void deleteBooking(Long id) {
-        bookingsRepository.deleteById(id);
+        Bookings booking = bookingsRepository.findById(id).orElse(null);
+        if (booking != null) {
+            booking.setGuests(null);
+            bookingsRepository.delete(booking);
+        }
     }
 }
 
