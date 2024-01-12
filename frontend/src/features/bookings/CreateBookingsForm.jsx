@@ -8,47 +8,93 @@ import {useCreateBooking} from "./useCreateBooking.js";
 import Checkbox from "../../ui/Checkbox.jsx";
 import {useState} from "react";
 import Textarea from "../../ui/Textarea.jsx";
+import {useUpdateSettings} from "../settings/useUpdateSettings.js";
+import {useSettings} from "../settings/useSettings.js";
+import Spinner from "../../ui/Spinner.jsx";
 
 
-const CreateBookingsForm = ({onCloseModal,accommodationId}) => {
+const CreateBookingsForm = ({onCloseModal,accommodationId,maxCapacity}) => {
     const [addBreakfast,setAddBreakfast] = useState(false);
     const [addDinner,setAddDinner] = useState(false);
     const {register, handleSubmit,reset,formState,getValues} = useForm();
     const {errors} = formState;
     const {isCreating,createBooking} = useCreateBooking();
 
-    function onSubmit(data) {
-        createBooking({ data: { ...data, hasDinner:addDinner,hasBreakfast:addBreakfast,accommodationId }},{
+
+    const isWorking = isCreating;
+
+    async function getFlagURL(nationality) {
+        const apiUrl = `https://restcountries.com/v2/name/${nationality}`;
+
+        try {
+            const response = await fetch(apiUrl);
+            const data = await response.json();
+
+            // Extract the alpha-2 (CCA2) code from the response.
+            const flagCode = data[0]?.alpha2Code || data[0]?.alpha3Code;
+
+            // Construct the flag URL.
+            const flagURL = `https://flagcdn.com/${flagCode.toLowerCase()}.svg`;
+
+            return flagURL;
+        } catch (error) {
+            console.error('Error fetching country information:', error);
+            // Handle errors if needed.
+            return null;
+        }
+    }
+
+    async function onSubmit(data) {
+        const countryFlag = await getFlagURL(data.nationality)
+        createBooking({
+            data: {
+                ...data,
+                countryFlag: countryFlag,
+                hasDinner: addDinner,
+                hasBreakfast: addBreakfast,
+                accommodationId
+            }
+        }, {
             onSuccess: () => {
                 reset();
                 onCloseModal?.();
             }
         });
     }
+
+    if (isWorking) return  <Spinner />
     return (
         <Form onSubmit={handleSubmit(onSubmit)} type={onCloseModal ? 'modal' : 'regular'}>
             <FormRow label="Full name" error={errors?.fullName?.message}>
-                <Input type="text" id="name" {...register("fullName",{required:"This field is required"})}/>
+                <Input type="text"  disabled={isWorking} id="name" {...register("fullName",{required:"This field is required"})}/>
             </FormRow>
 
             <FormRow label="Email" error={errors?.email?.message}>
-                <Input type="email" id="email" {...register("email",{required:"This field is required"})}/>
+                <Input type="email"  disabled={isWorking} id="email" {...register("email",{required:"This field is required"})}/>
             </FormRow>
-            <FormRow label="Nationality" error={errors?.nationality?.message}>
-                <Input type="text" id="nationality" {...register("nationality",{required:"This field is required"})}/>
+            <FormRow label="Country" error={errors?.nationality?.message}>
+                <Input type="text"  disabled={isWorking} id="nationality" {...register("nationality",{required:"This field is required"})}/>
+            </FormRow>
+
+            <FormRow label="Nationality ID" error={errors?.nationalID?.message}>
+                <Input type="text"  disabled={isWorking} id="nationalID" {...register("nationalID",{required:"This field is required"})}/>
             </FormRow>
 
             <FormRow label="Start date" error={errors?.startDate?.message}>
-                <Input type="date" id="startDate" {...register("startDate",{required:"This field is required"})}/>
+                <Input type="date"  disabled={isWorking} id="startDate" {...register("startDate",{required:"This field is required"})}/>
             </FormRow>
 
 
 
                 <FormRow  label="Num of nights" error={errors?.numNights?.message}>
-                    <Input type="number" id="numNights" {...register("numNights",{required:"This field is required"})}/>
+                    <Input type="number"  disabled={isWorking} id="numNights" {...register("numNights",{required:"This field is required"})}/>
                 </FormRow>
                 <FormRow   label="Num of guests" error={errors?.numGuests?.message}>
-                    <Input type="number" id="numGuests" {...register("numGuests",{required:"This field is required"})}/>
+                    <Input type="number"  disabled={isWorking}  id="numGuests" {...register("numGuests",{required:"This field is required", max: {
+                            value: maxCapacity,
+                            message: `Maximum allowed guests is ${maxCapacity}`,
+                        },})}/>
+
                 </FormRow>
 
 
@@ -61,7 +107,7 @@ const CreateBookingsForm = ({onCloseModal,accommodationId}) => {
                     id="breakfast" >
                             Want to add breakfast ?
                         </Checkbox>
-                        <Checkbox
+                        <Checkbox disabled={isWorking}
                             checked={addDinner}
                             onChange={() => {
                                 setAddDinner((add) => !add)
@@ -79,7 +125,7 @@ const CreateBookingsForm = ({onCloseModal,accommodationId}) => {
 
 
             <FormRow label="Observations" error={errors?.observations?.message}>
-                <Textarea  id="observations" {...register("observations",{required:"This field is required"})}/>
+                <Textarea  id="observations"  disabled={isWorking} {...register("observations",{required:"This field is required"})}/>
             </FormRow>
 
             <FormRow>
@@ -87,7 +133,7 @@ const CreateBookingsForm = ({onCloseModal,accommodationId}) => {
                 <Button  onClick={() => onCloseModal?.()}  variation="secondary" type="reset">
                     Cancel
                 </Button>
-                <Button>Book now</Button>
+                <Button disabled={isWorking}>Book now</Button>
             </FormRow>
         </Form>
     );

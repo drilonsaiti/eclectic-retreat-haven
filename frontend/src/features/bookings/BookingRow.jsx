@@ -15,6 +15,7 @@ import Tag from "../../ui/Tag.jsx";
 import Modal from "../../ui/Modal.jsx";
 import ConfirmDelete from "../../ui/ConfirmDelete.jsx";
 import {useDeleteBooking} from "./useDeleteBooking.js";
+import {useCheckout} from "../check-in-out/useCheckout.js";
 
 
 const Accomm = styled.div`
@@ -46,25 +47,26 @@ const Amount = styled.div`
 
 function BookingRow({
   booking: {
-    bookingId,
+    id:bookingId,
     createdAt,
     startDate,
     endDate,
     numNights,
     numGuests,
     totalPrice,
+      types,
     status,
     guestFullName: guestName,
     guestEmail,
     accommodationName: accommName
   },
 }) {
-  const { mutate: deleteBooking, isLoading: isDeleting } = useDeleteBooking();
-  /*const { mutate: checkout, isLoading: isCheckingOut } = useCheckout();*/
+  const {deleteMutate, isLoading: isDeleting } = useDeleteBooking();
+  const { mutate: checkout, isCheckingOut } = useCheckout();
 
   const navigate = useNavigate();
 
-
+console.log(bookingId);
   const statusToTagName = {
     unconfirmed: 'blue',
     'checked-in': 'green',
@@ -75,6 +77,7 @@ function BookingRow({
   return (
     <Table.Row role='row'>
       <Accomm>{accommName}</Accomm>
+
 
       <Stacked>
         <span>{guestName}</span>
@@ -120,8 +123,11 @@ function BookingRow({
 
             {status === 'checked-in' && (
               <Menus.Button
-               /* onClick={() => checkout(bookingId)}
-                disabled={isCheckingOut}*/
+                onClick={() => {
+                  console.log("CHECKED OUT: ",bookingId)
+                  checkout(bookingId);
+                }}
+                disabled={isCheckingOut}
 
                 icon={<HiArrowUpOnSquare />}
               >
@@ -141,7 +147,7 @@ function BookingRow({
         <Modal.Window name='delete'>
           <ConfirmDelete
             resource='booking'
-            onConfirm={(options) => deleteBooking(bookingId, options)}
+            onConfirm={(options) => deleteMutate(bookingId, options)}
             disabled={isDeleting}
           />
         </Modal.Window>

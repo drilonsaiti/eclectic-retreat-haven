@@ -1,22 +1,32 @@
 
-Ajavascript:S3863"%'utils/helpers' import is duplicated.(ù•öà
-Cjavascript:S6774h"('booking' is missing in props validation(²…ØA
-Ojavascript:S6774j"3'booking.created_at' is missing in props validation(®ØÆì
-Njavascript:S6774k"2'booking.startDate' is missing in props validation(Àµã
-Qjavascript:S6774l"0'booking.endDate' is missing in props validation(áŒ×“ÿÿÿÿÿ
-Mjavascript:S6774m"2'booking.numNights' is missing in props validation(¾öñ;
-Njavascript:S6774n"2'booking.numGuests' is missing in props validation(è¬çÛ
-Tjavascript:S6774o"3'booking.cabinPrice' is missing in props validation(ÏÒÇÖşÿÿÿÿ
-Ujavascript:S6774p"4'booking.extrasPrice' is missing in props validation(£ÇÄØşÿÿÿÿ
-Ojavascript:S6774q"3'booking.totalPrice' is missing in props validation(ÀØ“İ
-Pjavascript:S6774r"5'booking.hasBreakfast' is missing in props validation(½…µ
-Vjavascript:S6774s"5'booking.observations' is missing in props validation(Ë¾Ğëıÿÿÿÿ
-Pjavascript:S6774t"/'booking.isPaid' is missing in props validation(ÑıàÚøÿÿÿÿ
-Kjavascript:S6774u"/'booking.guests' is missing in props validation(ú·•¾
-Tjavascript:S6774u"8'booking.guests.fullName' is missing in props validation(ú·•¾
-Qjavascript:S6774u"5'booking.guests.email' is missing in props validation(ú·•¾
-Sjavascript:S6774u"7'booking.guests.country' is missing in props validation(ú·•¾
-Wjavascript:S6774u";'booking.guests.countryFlag' is missing in props validation(ú·•¾
-Vjavascript:S6774u":'booking.guests.nationalID' is missing in props validation(ú·•¾
-Kjavascript:S6774v"/'booking.cabins' is missing in props validation(¨µÉò
-Pjavascript:S6774v"4'booking.cabins.name' is missing in props validation(¨µÉò
+|javascript:S3776j"TRefactor this function to reduce its Cognitive Complexity from 25 to the 15 allowed.(ºùÕ®ÿÿÿÿÿ8ôÓÄÏ1
+Pjavascript:S6774j"('booking' is missing in props validation(ºùÕ®ÿÿÿÿÿ8ôÓÄÏ1
+Pjavascript:S6774j"('checkin' is missing in props validation(ºùÕ®ÿÿÿÿÿ8ôÓÄÏ1
+Zjavascript:S6774j"2'totalPriceBooking' is missing in props validation(ºùÕ®ÿÿÿÿÿ8ôÓÄÏ1
+Rjavascript:S6774j"*'addDinner' is missing in props validation(ºùÕ®ÿÿÿÿÿ8ôÓÄÏ1
+Ujavascript:S6774j"-'addBreakfast' is missing in props validation(ºùÕ®ÿÿÿÿÿ8ôÓÄÏ1
+[javascript:S6774j"3'extrasPriceCheckin' is missing in props validation(ºùÕ®ÿÿÿÿÿ8ôÓÄÏ1
+Ujavascript:S6774l"2'booking.createdAt' is missing in props validation(ã¤½8ôÓÄÏ1
+Ujavascript:S6774m"2'booking.startDate' is missing in props validation(Àµã8ôÓÄÏ1
+Xjavascript:S6774n"0'booking.endDate' is missing in props validation(áŒ×“ÿÿÿÿÿ8õÓÄÏ1
+Tjavascript:S6774o"2'booking.numNights' is missing in props validation(¾öñ;8õÓÄÏ1
+Ujavascript:S6774p"2'booking.numGuests' is missing in props validation(è¬çÛ8õÓÄÏ1
+Vjavascript:S6774q".'booking.price' is missing in props validation(¤¥Úûÿÿÿÿ8õÓÄÏ1
+\javascript:S6774r"4'booking.extrasPrice' is missing in props validation(£ÇÄØşÿÿÿÿ8õÓÄÏ1
+Vjavascript:S6774s"3'booking.totalPrice' is missing in props validation(ÀØ“İ8õÓÄÏ1
+Wjavascript:S6774t"5'booking.hasBreakfast' is missing in props validation(½…µ8õÓÄÏ1
+Zjavascript:S6774u"2'booking.hasDinner' is missing in props validation(ˆÔŠğøÿÿÿÿ8õÓÄÏ1
+]javascript:S6774v"5'booking.observations' is missing in props validation(Ë¾Ğëıÿÿÿÿ8õÓÄÏ1
+Ujavascript:S6774w"-'booking.paid' is missing in props validation(’—È¬üÿÿÿÿ8õÓÄÏ1
+Xjavascript:S6774x"5'booking.guestDetails' is missing in props validation(¬ğáş8õÓÄÏ1
+ajavascript:S6774x">'booking.guestDetails.fullName' is missing in props validation(¬ğáş8õÓÄÏ1
+^javascript:S6774x";'booking.guestDetails.email' is missing in props validation(¬ğáş8õÓÄÏ1
+`javascript:S6774x"='booking.guestDetails.country' is missing in props validation(¬ğáş8õÓÄÏ1
+djavascript:S6774x"A'booking.guestDetails.countryFlag' is missing in props validation(¬ğáş8õÓÄÏ1
+cjavascript:S6774x"@'booking.guestDetails.nationalID' is missing in props validation(¬ğáş8õÓÄÏ1
+cjavascript:S6774y";'booking.accommodationsName' is missing in props validation(îØû¾ûÿÿÿÿ8õÓÄÏ1
+Qjavascript:S6774z".'booking.types' is missing in props validation(²ÁøÑ8ø¸µÏÏ1
+mjavascript:S3358¦"DExtract this nested ternary operation into an independent statement.(à„üÿÿÿÿ8õÓÄÏ1
+mjavascript:S3358¦"DExtract this nested ternary operation into an independent statement.(à„üÿÿÿÿ8õÓÄÏ1
+mjavascript:S3358®"DExtract this nested ternary operation into an independent statement.(œÉ¡æûÿÿÿÿ8õÓÄÏ1
+mjavascript:S3358®"DExtract this nested ternary operation into an independent statement.(œÉ¡æûÿÿÿÿ8õÓÄÏ1

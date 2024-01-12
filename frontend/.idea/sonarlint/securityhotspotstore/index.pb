@@ -127,3 +127,35 @@ C
 src/ui/Checkbox.jsx,e\f\ef0c0ddd1956993afab3e38f3d64abe1a92cd669
 `
 0src/features/bookings/BookingTableOperations.jsx,b\b\bb68903a2f23d836dd2f9cc446dd7ba715e20ea3
+W
+'src/features/bookings/BookingDetail.jsx,e\d\ed083cdd2de5c4c28bb131c34fe687bd15f9164f
+J
+src/pages/PageNotFound.jsx,0\6\06cddf5f6d889da80e640d5b469ec63c551c4b99
+E
+src/ui/ButtonText.jsx,4\9\4930e562529ff1cef72f01233bc263f219718b75
+S
+#src/features/bookings/useBooking.js,b\7\b7ca12ac434effe131e5aa3143e767d5a87420cf
+?
+src/ui/Flag.jsx,a\a\aa6559f365825a012752101411c96f75a371360b
+I
+src/data/data-bookings.js,8\1\81b0410b36e71f2ead3c76dfb58fc5ce0591636f
+G
+src/data/data-guests.js,e\9\e90399c382ff17b4b6622b7bedf2966a9eba9cfd
+E
+src/pages/Checkin.jsx,9\3\93f347dfacd80b809f5dbed673db62df20075502
+W
+'src/features/check-in-out/useCheckin.js,3\d\3dd4a36d888438d4f210ca49907974aae28d002d
+X
+(src/features/check-in-out/useCheckout.js,7\e\7ee554dd5ea3f74f3fd004dc802c12efae339cd5
+E
+src/ui/HeaderMenu.jsx,5\9\59db53482ac5d0422b2314728ba4c9cb268f9094
+A
+src/ui/Header.jsx,f\5\f5bbe685ac8fb177ff141e90baa4ede4adec673a
+Z
+*src/features/authentication/UserAvatar.jsx,3\0\30a5ff0c511f62b5c9c996cc10366aabf8c99577
+O
+src/context/DarkModeContent.jsx,f\8\f860cf25d2c512069c95fdd71b0fa1f509f46a96
+I
+src/ui/DarkModeToggle.jsx,7\e\7e28be53caf3957edb3c9a1f7d84748e1658a3ce
+O
+src/context/DarkModeContext.jsx,c\1\c15eeb68515ffde78e67163ea00f75048c3cffbe

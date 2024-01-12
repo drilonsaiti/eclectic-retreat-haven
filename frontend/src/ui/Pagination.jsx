@@ -102,7 +102,7 @@ const Pagination = ({count}) => {
                 <PaginationButton disabled={currentPage === 1} onClick={prevPage}><HiChevronLeft/> <span>Previous</span></PaginationButton>
 
                 {range.map((value) => (<PaginationButton active={value === currentPage} onClick={() => numPage(value)} key={value}>{value}</PaginationButton>))}
-                <PaginationButton  onClick={nextPage}><HiChevronRight/> <span>Next</span></PaginationButton>
+                <PaginationButton  disabled={currentPage === pageCount} onClick={nextPage}><HiChevronRight/> <span>Next</span></PaginationButton>
 
             </Buttons>
         </StyledPagination>

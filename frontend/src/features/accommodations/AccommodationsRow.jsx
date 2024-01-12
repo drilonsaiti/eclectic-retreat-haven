@@ -90,7 +90,7 @@ const AccommodationsRow = ({accommodation}) => {
 
                     </ButtonGroup>
                     <Modal.Window name="book">
-                        <CreateBookingsForm accommodationId={accommodationId}/>
+                        <CreateBookingsForm accommodationId={accommodationId} maxCapacity={maxCapacity}/>
                     </Modal.Window>
 
                     <Modal.Window name="edit">

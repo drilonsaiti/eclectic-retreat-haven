@@ -47,6 +47,7 @@ function BookingTable() {
       <Table columns='0.6fr 2fr 2.4fr 1.4fr 1fr 3.2rem'>
         <Table.Header>
           <div>Accommodation</div>
+
           <div>Guest</div>
           <div>Dates</div>
           <div>Status</div>
@@ -55,7 +56,7 @@ function BookingTable() {
         </Table.Header>
 
         <Table.Body
-          data={sortedBookings}
+            data={sortedBookings}
           render={(booking) => (
             <BookingRow key={booking.id} booking={booking} />
           )}

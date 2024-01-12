@@ -1,7 +1,8 @@
 
-Ujavascript:S6774"-'onCloseModal' is missing in props validation(êí£ÿÿÿÿÿ8È İğÎ1
-Xjavascript:S6774"0'accommodationId' is missing in props validation(êí£ÿÿÿÿÿ8È İğÎ1
-]javascript:S1481":Remove the declaration of the unused 'getValues' variable.(¥äŸï8È İğÎ1
-Zjavascript:S1854"7Remove this useless assignment to variable "getValues".(¥äŸï8È İğÎ1
-cjavascript:S1481";Remove the declaration of the unused 'isCreating' variable.(‰›Æşûÿÿÿÿ8È İğÎ1
-`javascript:S1854"8Remove this useless assignment to variable "isCreating".(‰›Æşûÿÿÿÿ8È İğÎ1
+Tjavascript:S1128"1Remove this unused import of 'useUpdateSettings'.(ÌßÂí8ç™ÔÏ1
+Sjavascript:S1128"+Remove this unused import of 'useSettings'.(³ç…ıúÿÿÿÿ8ç™ÔÏ1
+Ujavascript:S6774"-'onCloseModal' is missing in props validation(ËÛ¢ıÿÿÿÿ8ç™ÔÏ1
+Xjavascript:S6774"0'accommodationId' is missing in props validation(ËÛ¢ıÿÿÿÿ8è™ÔÏ1
+Tjavascript:S6774",'maxCapacity' is missing in props validation(ËÛ¢ıÿÿÿÿ8è™ÔÏ1
+]javascript:S1481":Remove the declaration of the unused 'getValues' variable.(¥äŸï8è™ÔÏ1
+Zjavascript:S1854"7Remove this useless assignment to variable "getValues".(¥äŸï8è™ÔÏ1

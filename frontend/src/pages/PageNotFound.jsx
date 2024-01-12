@@ -2,6 +2,8 @@ import styled from "styled-components";
 
 import { useMoveBack } from "../hooks/useMoveBack";
 import Heading from "../ui/Heading";
+import Button from "../ui/Button.jsx";
+import {HiChevronLeft} from "react-icons/hi2";
 
 const StyledPageNotFound = styled.main`
   height: 100vh;
@@ -12,7 +14,7 @@ const StyledPageNotFound = styled.main`
   padding: 4.8rem;
 `;
 
-const Box = styled.div`
+export const Box = styled.div`
   /* box */
   background-color: var(--color-grey-0);
   border: 1px solid var(--color-grey-100);
@@ -36,9 +38,9 @@ function PageNotFound() {
         <Heading as="h1">
           The page you are looking for could not be found 😢
         </Heading>
-        <button onClick={moveBack} size="large">
-          &larr; Go back
-        </button>
+        <Button  notFound={"notFound"} onClick={moveBack} size="large">
+          <HiChevronLeft /> Go back
+        </Button>
       </Box>
     </StyledPageNotFound>
   );
