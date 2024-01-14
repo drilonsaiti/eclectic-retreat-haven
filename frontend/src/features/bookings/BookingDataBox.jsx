@@ -119,6 +119,7 @@ function BookingDataBox({ booking,checkin,totalPriceBooking,addDinner,addBreakfa
     paid:isPaid,
     guestDetails: { fullName: guestName, email, country, countryFlag, nationalID },
     accommodationsName:accmName,
+      discount,
       types
   } = booking;
 
@@ -183,7 +184,8 @@ function BookingDataBox({ booking,checkin,totalPriceBooking,addDinner,addBreakfa
 
             {` (${formatCurrency(accmPrice)} accommodation${
                 ((hasBreakfast || addBreakfast) || (hasDinner || addDinner)) ? ` + ${formatCurrency(extrasPrice || extrasPriceCheckin)} for` : ''
-            }${(hasBreakfast || addBreakfast) ? ' breakfast' : ''}${(hasBreakfast || addBreakfast) && (hasDinner || addDinner) ? ' and' : ''}${(hasDinner || addDinner) ? ' dinner' : ''})`}
+            }${(hasBreakfast || addBreakfast) ? ' breakfast' : ''}${(hasBreakfast || addBreakfast) && 
+            (hasDinner || addDinner) ? ' and' : ''}${(hasDinner || addDinner) ? ' dinner' : ''})  ${discount > 0 ? "- " +formatCurrency(discount)+" discount" : ''}`}
           </DataItem>
 
           <p>{isPaid ? 'Paid' : 'Will pay at property'}</p>

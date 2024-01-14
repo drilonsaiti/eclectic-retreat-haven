@@ -5,14 +5,15 @@ import Table from "../../ui/Table";
 import Menus from "../../ui/Menus.jsx";
 import {useSearchParams} from "react-router-dom";
 import {useFilterAccommodations} from "./useFilterAccommodations.js";
+import {useFormatString} from "./useFormatString.js";
 
 const AccommodationsTable = () => {
 
     const {isPending, accommodations} = useAccommodations();
     const [searchParams] = useSearchParams();
 
-    if (isPending) return <Spinner/>
 
+    if (isPending) return <Spinner/>
     const filterDiscount = searchParams.get('discount') || 'all';
     const filterTypes = searchParams.get('types') || 'all';
 

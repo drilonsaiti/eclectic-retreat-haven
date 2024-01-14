@@ -27,7 +27,7 @@ function CheckinBooking() {
     const {isPending: isLoadingSettings, settings} = useSettings();
     console.log("CHECKIN: ", booking);
 
-    useEffect(() => setConfirmPaid(booking?.paid ?? false), [booking]);
+    useEffect(() => setConfirmPaid(booking?.paid ?? false), [booking,addBreakfast]);
     useEffect(() => {
         setAddBreakfast(booking?.hasBreakfast);
         setAddDinner(booking?.hasDinner);
@@ -45,7 +45,8 @@ function CheckinBooking() {
         hasDinner,
         numNights,
         isPaid,
-        guestDetails
+        guestDetails,
+        discount
     } = booking;
 
 
@@ -54,17 +55,36 @@ function CheckinBooking() {
     const optionalDinnerPrice =
         numNights * settings.dinnerPrice * numGuests;
 
+    function handleBreakfast(){
+        setAddBreakfast(add => !add);
+        const pay = false;
+        let extras = {
+            hasBreakfast: !addBreakfast,
+            hasDinner: addDinner
+        };
+        checkin({ data:extras,bookingId, pay});
+    }
+
+    function handleDinner(){
+        setAddBreakfast(add => !add);
+        const pay = false;
+        let extras = {
+            hasBreakfast: addBreakfast,
+            hasDinner: !addDinner
+        };
+        checkin({ data:extras,bookingId, pay});
+    }
     function handleCheckin() {
         if (!confirmPaid) return;
-
+        const pay = true;
         let extras = {
             hasBreakfast: addBreakfast,
             hasDinner: addDinner
         };
 
-        console.log("EXTRAS: ",extras)
-        checkin({ data:extras,bookingId });
+        checkin({ data:extras,bookingId,pay });
     }
+
 
     return (
         <>
@@ -78,16 +98,19 @@ function CheckinBooking() {
                                 +
                                 (hasBreakfast ? 0 : addBreakfast ? optionalBreakfastPrice : 0)}
                             addBreakfast={addBreakfast} addDinner={addDinner}
+                            discount={discount}
                             extrasPriceCheckin={(addBreakfast ? optionalBreakfastPrice : 0) + (addDinner ? optionalDinnerPrice : 0)}
             />
 
             <Box>
               <div style={{marginBottom: '4rem'}}>
                 <Checkbox
+                    disabled={isPaid || confirmPaid}
                     checked={addBreakfast}
                     onChange={() => {
-                        setAddBreakfast((add) => !add);
+                        handleBreakfast();
                         setConfirmPaid(false);
+
                     }}
                     id='breakfast'
                 >
@@ -96,9 +119,11 @@ function CheckinBooking() {
               </div>
               <Checkbox
                   checked={addDinner}
+                  disabled={isPaid || confirmPaid}
                   onChange={() => {
-                    setAddDinner((add) => !add);
+                    handleDinner();
                     setConfirmPaid(false);
+
                   }}
                   id='dinner'
               >
@@ -121,7 +146,7 @@ function CheckinBooking() {
                     )} (${formatCurrency(accmPrice)} + ${addBreakfast ? formatCurrency(
                         optionalBreakfastPrice
                     ) : '0.00'} for breakfast + ${addDinner ? formatCurrency(
-                        optionalDinnerPrice) : '0.00'} for dinner)`
+                        optionalDinnerPrice) : '0.00'} for dinner) - ${discount > 0 ? formatCurrency(discount)+" discount" : ''}`
                     }
                 </Checkbox>
             </Box>

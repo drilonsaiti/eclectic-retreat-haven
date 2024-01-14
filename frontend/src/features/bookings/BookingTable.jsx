@@ -6,41 +6,16 @@ import BookingRow from "./BookingRow.jsx";
 import {useBookings} from "./useBookings.js";
 import Pagination from "../../ui/Pagination.jsx";
 import {useSearchParams} from "react-router-dom";
-import {PAGE_SIZE} from "../../utils/helpers.js";
+import {getToday, PAGE_SIZE} from "../../utils/helpers.js";
 
 
 function BookingTable() {
   const { bookings, totalElements, isLoading } = useBookings();
-  const [searchParams] = useSearchParams();
 
-  if (isLoading) return <Spinner />;
+
   if (!bookings) return <Empty resource={'bookings'} />;
 
-  const filterTypes = searchParams.get('types') || 'all';
-  const filterStatus = searchParams.get('status') || 'all';
-  let filteredBookings = bookings.filter((booking) => {
-    const typeCondition = filterTypes === 'all' || booking.types === filterTypes.toUpperCase()
-
-    const statusCondition =
-        filterStatus === 'all' ||
-        (filterStatus === 'checked-out' && booking.status === "checked-out") ||
-        (filterStatus === 'checked-in' && booking.status === "checked-in") ||
-        (filterStatus === 'unconfirmed' && booking.status === "unconfirmed");
-
-    return typeCondition && statusCondition;
-  });
-
-
-  const sortBy = searchParams.get("sortBy") || "startDate-asc";
-  const [field,direction] = sortBy.split("-");
-  const modifier = direction === 'asc' ? 1 : -1;
-  const sortedBookings = filteredBookings.sort((a, b) =>
-      field === 'startDate' ?
-          modifier * a[field].localeCompare(b[field]) :
-          modifier * (a[field] - b[field])
-
-  )
-
+  if (isLoading) return <Spinner />;
 
   return (
     <Menus>
@@ -56,7 +31,7 @@ function BookingTable() {
         </Table.Header>
 
         <Table.Body
-            data={sortedBookings}
+            data={bookings}
           render={(booking) => (
             <BookingRow key={booking.id} booking={booking} />
           )}

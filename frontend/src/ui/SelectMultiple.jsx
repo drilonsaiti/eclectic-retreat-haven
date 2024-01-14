@@ -45,7 +45,7 @@ const DropdownResetButton = styled.button`
 const DropdownContent = styled.div`
   display: ${(props) => (props.isOpen ? 'block' : 'none')};
   position: absolute;
-  background-color: #f9f9f9;
+  background-color: var(--color-grey-50);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   z-index: 1;
   min-width: 160px;

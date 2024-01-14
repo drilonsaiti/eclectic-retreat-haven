@@ -1,5 +1,6 @@
-import Button from 'ui/Button';
+
 import { useCheckout } from './useCheckout';
+import Button from "../../ui/Button.jsx";
 
 function CheckoutButton({ bookingId }) {
   const { isLoading, mutate: checkout } = useCheckout();

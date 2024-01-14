@@ -16,6 +16,7 @@ import BookingDataBox from "./BookingDataBox.jsx";
 
 
 import {useCheckout} from "../check-in-out/useCheckout.js";
+import Empty from "../../ui/Empty.jsx";
 
 const HeadingGroup = styled.div`
   display: flex;
@@ -35,7 +36,7 @@ function BookingDetail() {
 
   console.log(booking);
    if (isLoading) return <Spinner />;
-  // if (!booking) return <Empty resource='booking' />;
+  if (!booking) return <Empty resource='booking' />;
 
   const statusToTagName = {
     unconfirmed: 'blue',

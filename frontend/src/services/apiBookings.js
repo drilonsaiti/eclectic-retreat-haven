@@ -46,57 +46,51 @@ export async function getBooking(id) {
   }
 }
 
-// Returns all BOOKINGS that are were created after the given date. Useful to get bookings created in the last 30 days, for example.
 export async function getBookingsAfterDate(date) {
   try {
-    const response = await axios.get(`http://localhost:9092/api/bookings/${date}`);
+    const response = await axios.get(`http://localhost:9092/api/bookings/last`,{
+      params: {
+        last: date,
+      }
+    });
+
+    console.log("DATE " , response.data);
     return response.data;
   } catch (error) {
     throw new Error('Booking could not be loaded');
   }
 }
 
-// Returns all STAYS that are were created after the given date
-export async function getStatusAfterDate(date) {
-  const { data, error } = await supabase
-    .from("bookings")
-    // .select('*')
-    .select("*, guests(fullName)")
-    .gte("startDate", date)
-    .lte("startDate", getToday());
 
-  if (error) {
-    console.error(error);
-    throw new Error("Bookings could not get loaded");
+export async function getStaysAfterDate(date) {
+  try {
+    const response = await axios.get(`http://localhost:9092/api/bookings/stays`,{
+      params: {
+        stays: date,
+      }
+    });
+    console.log("STAYS",response.data)
+    return response.data;
+  } catch (error) {
+    throw new Error('Booking could not be loaded');
   }
-
-  return data;
 }
 
 // Activity means that there is a check in or a check out today
 export async function getStaysTodayActivity() {
-  const { data, error } = await supabase
-    .from("bookings")
-    .select("*, guests(fullName, nationality, countryFlag)")
-    .or(
-      `and(status.eq.unconfirmed,startDate.eq.${getToday()}),and(status.eq.checked-in,endDate.eq.${getToday()})`
-    )
-    .order("created_at");
-
-  // Equivalent to this. But by querying this, we only download the data we actually need, otherwise we would need ALL bookings ever created
-  // (stay.status === 'unconfirmed' && isToday(new Date(stay.startDate))) ||
-  // (stay.status === 'checked-in' && isToday(new Date(stay.endDate)))
-
-  if (error) {
-    console.error(error);
-    throw new Error("Bookings could not get loaded");
+  try {
+    const response = await axios.get(`http://localhost:9092/api/bookings/activity`);
+    console.log("ACTIVITY",response.data)
+    return response.data;
+  } catch (error) {
+    throw new Error('Booking could not be loaded');
   }
-  return data;
 }
 
 export async function updateBooking(obj,id) {
 
-  console.log(obj.data,id);
+
+  console.log("UPDATE ",obj)
   try {
     const response = await axios.put(`http://localhost:9092/api/bookings/${id}`, obj.data);
     return response.data;
@@ -108,6 +102,16 @@ export async function updateBooking(obj,id) {
 export async function deleteBooking(id) {
   try {
     const response = await axios.delete(`http://localhost:9092/api/bookings/${id}`);
+    return response.data;
+  } catch (error) {
+    throw new Error('Settings could not be loaded');
+  }
+}
+
+export async function getBookedDates(id) {
+  try {
+    const response = await axios.get(`http://localhost:9092/api/bookings/booked-dates/${id}`);
+    console.log("DATES API:",response.data);
     return response.data;
   } catch (error) {
     throw new Error('Settings could not be loaded');

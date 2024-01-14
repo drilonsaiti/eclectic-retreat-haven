@@ -153,9 +153,43 @@ A
 src/ui/Header.jsx,f\5\f5bbe685ac8fb177ff141e90baa4ede4adec673a
 Z
 *src/features/authentication/UserAvatar.jsx,3\0\30a5ff0c511f62b5c9c996cc10366aabf8c99577
-O
-src/context/DarkModeContent.jsx,f\8\f860cf25d2c512069c95fdd71b0fa1f509f46a96
 I
 src/ui/DarkModeToggle.jsx,7\e\7e28be53caf3957edb3c9a1f7d84748e1658a3ce
 O
 src/context/DarkModeContext.jsx,c\1\c15eeb68515ffde78e67163ea00f75048c3cffbe
+Z
+*src/features/dashboard/DashboardLayout.jsx,4\6\46ead795fb62a1139aaa0bb7799c4c2c73437447
+G
+src/pages/Dashboard.jsx,a\1\a1b8ba7631773a19eacf3537ecb443f8eee6b9c7
+Z
+*src/features/dashboard/DashboardFilter.jsx,2\f\2fcebe2df6bee423c3aefcb23f8922310d31a5a3
+W
+'src/features/dashboard/DashboardBox.jsx,0\c\0c704ffe7df2e09d6ed83a6b9a771e7a536b4e7e
+U
+%src/features/dashboard/SalesChart.jsx,b\7\b798af4e049f690992ec152cb7ab663c2f795617
+X
+(src/features/dashboard/DurationChart.jsx,7\f\7f3b126aac761b8adf83197083fdb5619a2cdbfb
+O
+src/features/dashboard/Stat.jsx,5\b\5bc3b11ea1bf329ffdfcc7780171b5ca90e8fc3d
+P
+ src/features/dashboard/Stats.jsx,f\1\f1e9b9fc07c6dda3456f3b38c77c1d378ec50552
+T
+$src/features/dashboard/TodayItem.jsx,b\8\b8b4333aece37ee84d0c8a0a3556bb05415a3cd7
+[
++src/features/dashboard/useRecentBookings.js,6\8\6899c5bb7295ff72a79734474cbbaf83352eb3b5
+[
++src/features/check-in-out/TodayActivity.jsx,6\b\6b558db3277338c59aaff183b9e8bd4674941555
+\
+,src/features/check-in-out/CheckoutButton.jsx,f\8\f8180a7db6e8a05410c1e7c6517034e5013f9ac3
+X
+(src/features/dashboard/useRecentStays.js,f\d\fd3913ad3058ec16bae4a10cbfdf150fc57abcb8
+b
+2src/features/check-in-out/useActivityTodayStays.js,b\1\b1f724d626fa184fca11f1eff39e944bc553e7cc
+<
+src/main.jsx,5\7\57089a887b5e754a7ad19faec87d608b5e41411b
+H
+src/ui/ErrorFallback.jsx,f\2\f2df2c73146d22920b9d03c111aa04d172cf2dac
+@
+src/ui/Empty.jsx,f\7\f745de3e0ff5220799ed6907d5522f316c6f49ed
+W
+'src/features/bookings/useBookedDates.js,a\b\ab2ac85dfa46365b3bb7cd987b7f1d0193ac7ce6

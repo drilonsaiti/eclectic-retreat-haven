@@ -1,5 +1,5 @@
 
-|javascript:S3776j"TRefactor this function to reduce its Cognitive Complexity from 25 to the 15 allowed.(ºùÕ®ÿÿÿÿÿ8ôÓÄÏ1
+|javascript:S3776j"TRefactor this function to reduce its Cognitive Complexity from 26 to the 15 allowed.(ºùÕ®ÿÿÿÿÿ8ôÓÄÏ1
 Pjavascript:S6774j"('booking' is missing in props validation(ºùÕ®ÿÿÿÿÿ8ôÓÄÏ1
 Pjavascript:S6774j"('checkin' is missing in props validation(ºùÕ®ÿÿÿÿÿ8ôÓÄÏ1
 Zjavascript:S6774j"2'totalPriceBooking' is missing in props validation(ºùÕ®ÿÿÿÿÿ8ôÓÄÏ1
@@ -25,8 +25,9 @@ ajavascript:S6774x">'booking.guestDetails.fullName' is missing in props valid
 djavascript:S6774x"A'booking.guestDetails.countryFlag' is missing in props validation(¬ğáş8õÓÄÏ1
 cjavascript:S6774x"@'booking.guestDetails.nationalID' is missing in props validation(¬ğáş8õÓÄÏ1
 cjavascript:S6774y";'booking.accommodationsName' is missing in props validation(îØû¾ûÿÿÿÿ8õÓÄÏ1
-Qjavascript:S6774z".'booking.types' is missing in props validation(²ÁøÑ8ø¸µÏÏ1
-mjavascript:S3358¦"DExtract this nested ternary operation into an independent statement.(à„üÿÿÿÿ8õÓÄÏ1
-mjavascript:S3358¦"DExtract this nested ternary operation into an independent statement.(à„üÿÿÿÿ8õÓÄÏ1
-mjavascript:S3358®"DExtract this nested ternary operation into an independent statement.(œÉ¡æûÿÿÿÿ8õÓÄÏ1
-mjavascript:S3358®"DExtract this nested ternary operation into an independent statement.(œÉ¡æûÿÿÿÿ8õÓÄÏ1
+Tjavascript:S6774z"1'booking.discount' is missing in props validation(˜Î­Ù8ëÍåšĞ1
+Qjavascript:S6774{".'booking.types' is missing in props validation(²ÁøÑ8ø¸µÏÏ1
+mjavascript:S3358§"DExtract this nested ternary operation into an independent statement.(à„üÿÿÿÿ8õÓÄÏ1
+mjavascript:S3358§"DExtract this nested ternary operation into an independent statement.(à„üÿÿÿÿ8õÓÄÏ1
+mjavascript:S3358¯"DExtract this nested ternary operation into an independent statement.(œÉ¡æûÿÿÿÿ8õÓÄÏ1
+mjavascript:S3358¯"DExtract this nested ternary operation into an independent statement.(œÉ¡æûÿÿÿÿ8õÓÄÏ1

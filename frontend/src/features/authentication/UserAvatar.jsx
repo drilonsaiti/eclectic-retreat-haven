@@ -22,9 +22,10 @@ const Avatar = styled.img`
 
 
 const UserAvatar = ({src,alt}) => {
+    console.log("AVATAR: " ,src)
     return (
         <StyledUserAvatar>
-            <Avatar src={src} alt={alt}/>
+            <Avatar src={"http://localhost:5173/"+src} alt={alt}/>
         </StyledUserAvatar>
     );
 };
