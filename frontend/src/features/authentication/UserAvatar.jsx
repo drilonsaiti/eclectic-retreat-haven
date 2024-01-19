@@ -25,7 +25,7 @@ const UserAvatar = ({src,alt}) => {
     console.log("AVATAR: " ,src)
     return (
         <StyledUserAvatar>
-            <Avatar src={"http://localhost:5173/"+src} alt={alt}/>
+            <Avatar src={src} alt={alt}/>
         </StyledUserAvatar>
     );
 };

@@ -17,6 +17,8 @@ import BookingDataBox from "./BookingDataBox.jsx";
 
 import {useCheckout} from "../check-in-out/useCheckout.js";
 import Empty from "../../ui/Empty.jsx";
+import {useProfile} from "../authentication/useUpdateUser.js";
+import AccessDenied from "../../ui/AccessDenied.jsx";
 
 const HeadingGroup = styled.div`
   display: flex;
@@ -28,14 +30,14 @@ function BookingDetail() {
   const { isLoading,booking } = useBooking();
   const { deleteMutate, isLoading: isDeleting } = useDeleteBooking();
   const { mutate: checkout, isCheckingOut } = useCheckout();
-
+    const {profileData,isLoading:isLoadingProfile} = useProfile();
 
 
   const moveBack = useMoveBack();
   const navigate = useNavigate();
 
   console.log(booking);
-   if (isLoading) return <Spinner />;
+   if (isLoading || isLoadingProfile) return <Spinner />;
   if (!booking) return <Empty resource='booking' />;
 
   const statusToTagName = {
@@ -44,7 +46,10 @@ function BookingDetail() {
     'checked-out': 'silver',
   };
 
-  const { bookingId, status } = booking;
+  const { bookingId, status,
+      guestDetails: { email}} = booking;
+
+  if (email !== profileData.email) return <AccessDenied />
 
   return (
     <>

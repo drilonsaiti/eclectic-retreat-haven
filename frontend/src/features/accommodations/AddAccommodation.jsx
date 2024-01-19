@@ -1,10 +1,17 @@
-import React, {useState} from 'react';
 import Button from "../../ui/Button.jsx";
 import CreateAccommodationsForm from "./CreateAccommodationsForm.jsx";
 import Modal from "../../ui/Modal.jsx";
+import {useGetRole} from "../../services/useGetRole.js";
+import AccessDenied from "../../ui/AccessDenied.jsx";
 
 
 const AddAccommodation = () => {
+
+    const {roles,isLoading:isLoadingRole} = useGetRole();
+    const hasAdminRole = roles.includes("ROLE_ADMIN");
+
+    if (!hasAdminRole) return <AccessDenied/>
+
     return <Modal>
         <Modal.Open opens={"accommodation-form"}>
             <Button>Add new accommodation</Button>

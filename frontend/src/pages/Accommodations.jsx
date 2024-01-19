@@ -3,8 +3,11 @@ import Row from "../ui/Row";
 import AccommodationsTable from "../features/accommodations/AccommodationsTable.jsx";
 import AddAccommodation from "../features/accommodations/AddAccommodation.jsx";
 import AccommodationTableOperations from "../features/accommodations/AccommodationTableOperations.jsx";
+import {useGetRole} from "../services/useGetRole.js";
 
 function Accommodations() {
+    const {roles,isLoading:isLoadingRole} = useGetRole();
+    const hasAdminRole = roles.includes("ROLE_ADMIN");
   return (
       <>
     <Row type="horizontal" change="yes">
@@ -15,7 +18,8 @@ function Accommodations() {
 
       <Row>
           <AccommodationsTable/>
-          <AddAccommodation/>
+          {hasAdminRole && <AddAccommodation/>}
+
       </Row>
       </>
   );

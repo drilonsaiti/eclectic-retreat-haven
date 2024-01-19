@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 import { HiArrowDown} from 'react-icons/hi2';
 import {useSearchParams} from "react-router-dom";

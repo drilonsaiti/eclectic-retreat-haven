@@ -1,8 +1,6 @@
 import styled from "styled-components";
 import {createContext, useCallback, useContext, useMemo, useState} from "react";
-import PropTypes from "prop-types";
-import Modal from "./Modal.jsx";
-import {HiEllipsisVertical} from "react-icons/all.js";
+import {HiEllipsisVertical} from "react-icons/hi2";
 import {createPortal} from "react-dom";
 import {useOutsideClick} from "../hooks/useOutsideClick.js";
 

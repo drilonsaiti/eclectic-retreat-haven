@@ -1,10 +1,11 @@
 // Assuming you're using a library like Axios for making HTTP requests
 import axios from 'axios';
 import supabase, {supabaseUrl} from "./supabase";
+import {apiRequest} from "../utils/services.js";
 
 export async function getAccommodations() {
     try {
-        const response = await axios.get('http://localhost:9092/api/accommodations');
+        const response = await apiRequest('GET','accommodations')
         return response.data;
     } catch (error) {
         console.error(error);
@@ -33,11 +34,11 @@ export async function createEditAccommodation(newAccommodation, id) {
         newAccommodation.image = imagePath;
         if (!id) {
 
-            response = await axios.post('http://localhost:9092/api/accommodations', newAccommodation);
+            response = await apiRequest('POST','accommodations',newAccommodation)
         }
 
         if (id) {
-            response = await axios.put(`http://localhost:9092/api/accommodations/${id}`, newAccommodation);
+            response = await apiRequest('PUT',`accommodations/${id}`,newAccommodation)
         }
         return response.data;
     } catch (error) {
@@ -59,7 +60,7 @@ export async function deleteAccommodation(id) {
             console.error('Supabase Storage Error:', storageError);
             throw new Error('Error uploading image to storage');
         }
-        const response = await axios.delete(`http://localhost:9092/api/accommodations/${id}`);
+        const response = await apiRequest('DELETE',`accommodations/${id}`);
         return response.data;
     } catch (error) {
         console.error(error);
@@ -69,7 +70,7 @@ export async function deleteAccommodation(id) {
 
 export async function getAccommodationsTypes() {
     try {
-        const response = await axios.get('http://localhost:9092/api/accommodations/types');
+        const response = await apiRequest('GET',`accommodations/types`)
         return response.data;
     } catch (error) {
         console.error(error);

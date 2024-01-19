@@ -16,7 +16,10 @@ import {Toaster} from "react-hot-toast";
 import BookingDetail from "./features/bookings/BookingDetail.jsx";
 import Checkin from "./pages/Checkin.jsx";
 import {DarkModeProvider} from "./context/DarkModeContext.jsx";
-
+import {Helmet, HelmetProvider} from 'react-helmet-async';
+import ProtectedRoute from "./ui/ProtectedRoute.jsx";
+import Signup from "./pages/SignUp.jsx";
+import MyBookings from "./pages/MyBookings.jsx";
 
 const queryClient = new QueryClient({
   defaultOptions:{
@@ -28,27 +31,50 @@ const queryClient = new QueryClient({
 });
 
 function App() {
-  return (
-      <DarkModeProvider>
+
+
+
+
+    return (
+        <HelmetProvider>
+            <Helmet>
+                <meta httpEquiv="Content-Security-Policy" content="script-src 'self';" />
+                <meta httpEquiv="X-XSS-Protection" content="1; mode=block" />
+            </Helmet>
+          <DarkModeProvider>
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools initialIsOpen={false}/>
       <GlobalStyles />
       <BrowserRouter>
-        <Routes>
-          <Route element={<AppLayout />}>
-            <Route index element={<Navigate replace to="dashboard" />} />
-            <Route path="dashboard" element={<Dashboard />} />
-            <Route path="bookings" element={<Bookings />} />
-              <Route path="bookings/:bookingId" element={<BookingDetail />} />
-              <Route path="checkin/:bookingId" element={<Checkin />} />
 
-              <Route path="accommodations" element={<Accommodations />} />
-            <Route path="users" element={<Users />} />
-            <Route path="settings" element={<Settings />} />
-            <Route path="account" element={<Account />} />
-          </Route>
+        <Routes>
+
+            <Route element={
+                <ProtectedRoute>
+                    <AppLayout />
+                </ProtectedRoute>
+            }>
+
+
+
+                        <Route index element={<Navigate replace to="/accommodations" />} />
+                <Route
+                    path="dashboard"
+                    element={<ProtectedRoute adminOnly><Dashboard /></ProtectedRoute>}
+                />
+                        <Route path="bookings"   element={<ProtectedRoute adminOnly><Bookings /></ProtectedRoute>}/>
+                <Route path="myBookings"   element={<ProtectedRoute userOnly><MyBookings /></ProtectedRoute>}/>
+                        <Route path="bookings/:bookingId" element={<BookingDetail />} />
+                        <Route path="checkin/:bookingId" element={<Checkin />} />
+                        <Route path="accommodations" element={<Accommodations />} />
+                        <Route path="users" element={<ProtectedRoute adminOnly><Users /></ProtectedRoute>}/>
+                        <Route path="settings"  element={<ProtectedRoute adminOnly><Settings /></ProtectedRoute>} />
+                        <Route path="account" element={<Account />} />
+
+            </Route>
 
           <Route path="login" element={<Login />} />
+            <Route path="signup" element={<Signup />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
@@ -70,6 +96,7 @@ function App() {
           }}/>
       </QueryClientProvider>
       </DarkModeProvider>
+        </HelmetProvider>
   );
 }
 

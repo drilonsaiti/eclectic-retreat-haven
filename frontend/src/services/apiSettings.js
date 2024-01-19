@@ -1,9 +1,10 @@
 import axios from "axios";
+import {apiRequest} from "../utils/services.js";
 
 export async function getSettings() {
   try {
-    const response = await axios.get('http://localhost:9092/api/settings');
-    console.log(response.data[0])
+
+    const response = await apiRequest('GET','settings')
     return response.data[0];
   } catch (error) {
     console.error(error);
@@ -16,11 +17,12 @@ export async function updateSetting(newSetting) {
     let response = {};
 
     if (!newSetting.settingsId) {
-      response = await axios.post('http://localhost:9092/api/settings', newSetting);
+      response = await apiRequest('POST','settings',newSetting)
     }
 
     if (newSetting.settingsId) {
-      response = await axios.put(`http://localhost:9092/api/settings/${newSetting.settingsId}`, newSetting);
+
+      response = await  apiRequest('PUT',`settings/${newSetting.settingsId}`,newSetting);
     }
     return response.data;
 

@@ -12,9 +12,9 @@ import {formatCurrency} from "../../utils/helpers.js";
 import ButtonGroup from "../../ui/ButtonGroup.jsx";
 import Button from "../../ui/Button.jsx";
 import {Box} from "../../pages/PageNotFound.jsx";
-import DataItem from "../../ui/DataItem.jsx";
-import {HiOutlineCurrencyDollar} from "react-icons/hi2";
 import {useCheckin} from "./useCheckin.js";
+import {useProfile} from "../authentication/useUpdateUser.js";
+import AccessDenied from "../../ui/AccessDenied.jsx";
 
 
 function CheckinBooking() {
@@ -25,7 +25,7 @@ function CheckinBooking() {
     const {checkin,isCheckingIn} = useCheckin();
     const moveBack = useMoveBack();
     const {isPending: isLoadingSettings, settings} = useSettings();
-    console.log("CHECKIN: ", booking);
+    const {profileData,isLoading:isLoadingProfile} = useProfile();
 
     useEffect(() => setConfirmPaid(booking?.paid ?? false), [booking,addBreakfast]);
     useEffect(() => {
@@ -33,7 +33,7 @@ function CheckinBooking() {
         setAddDinner(booking?.hasDinner);
     }, [booking, booking?.hasBreakfast, booking?.hasDinner])
 
-    if (isLoading || isLoadingSettings) return <Spinner/>;
+    if (isLoading || isLoadingSettings || isLoadingProfile) return <Spinner/>;
     const {
         bookingId,
         guests,
@@ -49,6 +49,7 @@ function CheckinBooking() {
         discount
     } = booking;
 
+    if (guestDetails.email !== profileData.email) return <AccessDenied />
 
     const optionalBreakfastPrice =
         numNights * settings.breakfastPrice * numGuests;
@@ -94,12 +95,10 @@ function CheckinBooking() {
             </Row>
 
             <BookingDataBox booking={booking} checkin={true}
-                            totalPriceBooking={totalPrice + (hasDinner ? 0 : addDinner ? optionalDinnerPrice : 0)
-                                +
-                                (hasBreakfast ? 0 : addBreakfast ? optionalBreakfastPrice : 0)}
+                            totalPriceBooking={totalPrice}
                             addBreakfast={addBreakfast} addDinner={addDinner}
                             discount={discount}
-                            extrasPriceCheckin={(addBreakfast ? optionalBreakfastPrice : 0) + (addDinner ? optionalDinnerPrice : 0)}
+                            extrasPriceCheckin={extrasPrice}
             />
 
             <Box>
@@ -142,11 +141,11 @@ function CheckinBooking() {
                 >
                     I confirm that {guestDetails.fullName} has paid the total amount of{' '}
                     {`${formatCurrency(
-                        totalPrice + (hasDinner ? 0 : addDinner ? optionalDinnerPrice : 0) + (hasBreakfast ? 0 : addBreakfast ? optionalBreakfastPrice : 0)
+                        totalPrice
                     )} (${formatCurrency(accmPrice)} + ${addBreakfast ? formatCurrency(
                         optionalBreakfastPrice
                     ) : '0.00'} for breakfast + ${addDinner ? formatCurrency(
-                        optionalDinnerPrice) : '0.00'} for dinner) - ${discount > 0 ? formatCurrency(discount)+" discount" : ''}`
+                        optionalDinnerPrice) : '0.00'} for dinner)  ${discount > 0 ? "- "+ formatCurrency(discount)+" discount" : ''}`
                     }
                 </Checkbox>
             </Box>

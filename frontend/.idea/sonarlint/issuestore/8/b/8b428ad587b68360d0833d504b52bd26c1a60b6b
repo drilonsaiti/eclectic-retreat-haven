@@ -1,19 +1,16 @@
 
-Tjavascript:S1128"1Remove this unused import of 'useUpdateSettings'.(ÌßÂí8ÑÎ÷¤Ğ1
-Sjavascript:S1128"+Remove this unused import of 'useSettings'.(³ç…ıúÿÿÿÿ8ÑÎ÷¤Ğ1
-Tjavascript:S1128"1Remove this unused import of 'eachDayOfInterval'.(¦¿ÿä8ÑÎ÷¤Ğ1
-Fjavascript:S1128"#Remove this unused import of 'Row'.(¯Ô•§8ÑÎ÷¤Ğ1
-Ljavascript:S6774C")'children' is missing in props validation(·•Ø×8ÑÎ÷¤Ğ1
-Ujavascript:S6774I"-'onCloseModal' is missing in props validation(ËÛ¢ıÿÿÿÿ8ÒÎ÷¤Ğ1
-Xjavascript:S6774I"0'accommodationId' is missing in props validation(ËÛ¢ıÿÿÿÿ8ÒÎ÷¤Ğ1
-Tjavascript:S6774I",'maxCapacity' is missing in props validation(ËÛ¢ıÿÿÿÿ8ÒÎ÷¤Ğ1
-ejavascript:S1481J"=Remove the declaration of the unused 'minStartDate' variable.(„­‚íÿÿÿÿÿ8ÒÎ÷¤Ğ1
-bjavascript:S1854J":Remove this useless assignment to variable "minStartDate".(„­‚íÿÿÿÿÿ8ÒÎ÷¤Ğ1
-cjavascript:S1481K";Remove the declaration of the unused 'maxEndDate' variable.(œ•š­øÿÿÿÿ8ÒÎ÷¤Ğ1
-`javascript:S1854K"8Remove this useless assignment to variable "maxEndDate".(œ•š­øÿÿÿÿ8ÒÎ÷¤Ğ1
-]javascript:S1481N":Remove the declaration of the unused 'getValues' variable.(¥äŸï8Ì”ø¤Ğ1
-Zjavascript:S1854N"7Remove this useless assignment to variable "getValues".(¥äŸï8Ì”ø¤Ğ1
-]javascript:S1481Q":Remove the declaration of the unused 'isLoading' variable.(õÉ©²8ÒÎ÷¤Ğ1
-Zjavascript:S1854Q"7Remove this useless assignment to variable "isLoading".(õÉ©²8ÒÎ÷¤Ğ1
-hjavascript:S1481¬"?Remove the declaration of the unused 'isDateDisabled' variable.(ç™Îïúÿÿÿÿ8ô»‰¥Ğ1
-ejavascript:S1854¬"<Remove this useless assignment to variable "isDateDisabled".(ç™Îïúÿÿÿÿ8ô»‰¥Ğ1
+Ljavascript:S6774B")'children' is missing in props validation(·•Ø×8ùÛ‘Ò1
+Ujavascript:S6774H"-'onCloseModal' is missing in props validation(ËÛ¢ıÿÿÿÿ8úÛ‘Ò1
+Xjavascript:S6774H"0'accommodationId' is missing in props validation(ËÛ¢ıÿÿÿÿ8úÛ‘Ò1
+Tjavascript:S6774H",'maxCapacity' is missing in props validation(ËÛ¢ıÿÿÿÿ8úÛ‘Ò1
+ejavascript:S1481I"=Remove the declaration of the unused 'minStartDate' variable.(„­‚íÿÿÿÿÿ8úÛ‘Ò1
+bjavascript:S1854I":Remove this useless assignment to variable "minStartDate".(„­‚íÿÿÿÿÿ8úÛ‘Ò1
+cjavascript:S1481J";Remove the declaration of the unused 'maxEndDate' variable.(œ•š­øÿÿÿÿ8úÛ‘Ò1
+`javascript:S1854J"8Remove this useless assignment to variable "maxEndDate".(œ•š­øÿÿÿÿ8úÛ‘Ò1
+]javascript:S1481M":Remove the declaration of the unused 'getValues' variable.(¥äŸï8úÛ‘Ò1
+Zjavascript:S1854M"7Remove this useless assignment to variable "getValues".(¥äŸï8úÛ‘Ò1
+]javascript:S1481P":Remove the declaration of the unused 'isLoading' variable.(õÉ©²8úÛ‘Ò1
+Zjavascript:S1854P"7Remove this useless assignment to variable "isLoading".(õÉ©²8úÛ‘Ò1
+sjavascript:S1764V"KCorrect one of the identical sub-expressions on both sides of operator "||"(›¨À¹úÿÿÿÿ8úÛ‘Ò1
+hjavascript:S1481¬"?Remove the declaration of the unused 'isDateDisabled' variable.(ç™Îïúÿÿÿÿ8úÛ‘Ò1
+ejavascript:S1854¬"<Remove this useless assignment to variable "isDateDisabled".(ç™Îïúÿÿÿÿ8úÛ‘Ò1

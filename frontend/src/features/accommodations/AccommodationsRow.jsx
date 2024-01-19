@@ -11,6 +11,7 @@ import ConfirmDelete from "../../ui/ConfirmDelete.jsx";
 import Table from "../../ui/Table";
 import Menus from "../../ui/Menus.jsx";
 import CreateBookingsForm from "../bookings/CreateBookingsForm.jsx";
+import {useGetRole} from "../../services/useGetRole.js";
 
 
 
@@ -49,6 +50,8 @@ const AccommodationsRow = ({accommodation}) => {
 
     const {isCreating,createAccommodation} = useCreateAccommodation();
     const {isDeleting,deleteMutate} = useDeleteAccommodation();
+    const {roles,isLoading:isLoadingRole} = useGetRole();
+    const hasAdminRole = roles.includes("ROLE_ADMIN");
 
     function handleDuplicate() {
         createAccommodation({
@@ -74,6 +77,7 @@ const AccommodationsRow = ({accommodation}) => {
                     <Modal.Open opens="book">
                         <Button>Book now</Button>
                     </Modal.Open>
+                        {hasAdminRole &&
                     <Menus.Menu>
                         <Menus.Toggle id={accommodationId} />
                         <Menus.List id={accommodationId}>
@@ -87,19 +91,22 @@ const AccommodationsRow = ({accommodation}) => {
 
                         </Menus.List>
                     </Menus.Menu>
+                        }
 
                     </ButtonGroup>
                     <Modal.Window name="book">
                         <CreateBookingsForm accommodationId={accommodationId} maxCapacity={maxCapacity}/>
                     </Modal.Window>
-
+                    {hasAdminRole &&
                     <Modal.Window name="edit">
                         <CreateAccommodationsForm accommodationToEdit={accommodation} />
                     </Modal.Window>
-
+                    }
+                    {hasAdminRole &&
                     <Modal.Window name="delete">
                         <ConfirmDelete resource="accommodations" disabled={isDeleting} onConfirm={() => deleteMutate(accommodationId)}/>
                     </Modal.Window>
+}
                 </Modal>
         </Table.Row>
     );

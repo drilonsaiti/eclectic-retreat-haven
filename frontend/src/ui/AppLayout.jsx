@@ -1,7 +1,8 @@
 import { Outlet } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
-import styled from "styled-components";
+import styled, {css} from "styled-components";
+import {useGetRole} from "../services/useGetRole.js";
 
 const StyledAppLayout = styled.div`
   display: grid;
@@ -13,14 +14,24 @@ const StyledAppLayout = styled.div`
 const Main = styled.main`
   background-color: var(--color-grey-50);
   padding: 4rem 4.8rem 6.4rem;
+
+    ${(props) =>
+            props.user  &&
+            css`
+        grid-column: 1 / -1;
+      `}
 `;
 
 function AppLayout() {
-  return (
+    const {roles,isLoading:isLoadingRole} = useGetRole();
+    const hasAdminRole = roles.includes("ROLE_ADMIN");
+
+    return (
     <StyledAppLayout>
-      <Header />
-      <Sidebar />
-      <Main>
+      <Header user={true}/>
+        {hasAdminRole && <Sidebar />}
+
+      <Main user={true}>
         <Outlet />
       </Main>
     </StyledAppLayout>

@@ -1,13 +1,8 @@
 
-Mjavascript:S1128	"%Remove this unused import of 'Price'.(İğ¬ªûÿÿÿÿ8Ã×âšĞ1
-Kjavascript:S1128"(Remove this unused import of 'DataItem'.(’Öœç8Ä×âšĞ1
-Zjavascript:S1128"7Remove this unused import of 'HiOutlineCurrencyDollar'.(ÜÂ‘£8Ä×âšĞ1
-wjavascript:S3776"TRefactor this function to reduce its Cognitive Complexity from 19 to the 15 allowed.(§²ãè8Ä×âšĞ1
-Zjavascript:S1481'"7Remove the declaration of the unused 'guests' variable.(òó°ë8Ä×âšĞ1
-Wjavascript:S1854'"4Remove this useless assignment to variable "guests".(òó°ë8Ä×âšĞ1
-djavascript:S1481*"<Remove the declaration of the unused 'extrasPrice' variable.(£ÇÄØşÿÿÿÿ8Ä×âšĞ1
-ajavascript:S1854*"9Remove this useless assignment to variable "extrasPrice".(£ÇÄØşÿÿÿÿ8Ä×âšĞ1
-ljavascript:S3358a"DExtract this nested ternary operation into an independent statement.(ùé½ÿıÿÿÿÿ8Ä×âšĞ1
-fjavascript:S3358c"DExtract this nested ternary operation into an independent statement.(ŒšÆ@8Ä×âšĞ1
-hjavascript:S3358‘"DExtract this nested ternary operation into an independent statement.(«ÎŸ8Ä×âšĞ1
-hjavascript:S3358‘"DExtract this nested ternary operation into an independent statement.(«ÎŸ8Ä×âšĞ1
+Mjavascript:S1128	"%Remove this unused import of 'Price'.(İğ¬ªûÿÿÿÿ8ºú“’Ò1
+Zjavascript:S1481'"7Remove the declaration of the unused 'guests' variable.(òó°ë8ª’Ò1
+Wjavascript:S1854'"4Remove this useless assignment to variable "guests".(òó°ë8ª’Ò1
+_javascript:S1481,"=Remove the declaration of the unused 'hasBreakfast' variable.(½…µ8äÂù’Ò1
+\javascript:S1854,":Remove this useless assignment to variable "hasBreakfast".(½…µ8äÂù’Ò1
+bjavascript:S1481-":Remove the declaration of the unused 'hasDinner' variable.(ˆÔŠğøÿÿÿÿ8äÂù’Ò1
+_javascript:S1854-"7Remove this useless assignment to variable "hasDinner".(ˆÔŠğøÿÿÿÿ8äÂù’Ò1

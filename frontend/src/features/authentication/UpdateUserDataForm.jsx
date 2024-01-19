@@ -1,78 +1,111 @@
-import { useUser } from 'features/authentication/useUser';
-import { useState } from 'react';
-import Button from 'ui/Button';
-import FileInput from 'ui/FileInput';
-import Form from 'ui/Form';
-import FormRow from 'ui/FormRow';
-import Input from 'ui/Input';
-import { useUpdateUser } from './useUpdateUser';
+import {useState} from "react";
+import FormRow from "../../ui/FormRow.jsx";
+import Input from "../../ui/Input.jsx";
+import FileInput from "../../ui/FileInput.jsx";
+import Button from "../../ui/Button.jsx";
+import {useProfile, useUpdateAvatar, useUpdateUser} from "./useUpdateUser.js";
+import Form from "../../ui/Form.jsx";
+import Spinner from "../../ui/Spinner.jsx";
+
 
 function UpdateUserDataForm() {
-  // We don't need the loading state
-  const {
-    user: {
-      email,
-      user_metadata: { fullName: currentFullName },
-    },
-  } = useUser();
 
-  const [fullName, setFullName] = useState(currentFullName);
-  const [avatar, setAvatar] = useState(null);
+    const {profileData,isLoading} = useProfile();
+    const {updateUser,isUpdating} = useUpdateUser();
+    const {updateAvatar,isUpdatingAvatar} = useUpdateAvatar();
+    const [fullName, setFullName] = useState(profileData?.fullName);
+    const [password, setPassword] = useState(null);
+    const [avatar, setAvatar] = useState(null);
 
-  const { mutate: updateUser, isLoading: isUpdating } = useUpdateUser();
+    if (isLoading) return <Spinner/>
+
+/*  const { mutate: updateUser, isLoading: isUpdating } = useUpdateUser();*/
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (!fullName) return;
+    updateUser({fullName,password},
+        {
+            onSuccess: () => {
+                e.target.reset();
+            }
+        })
+  }
+    function handleFileChange(e) {
+        const selectedFile = e.target.files[0];
+        setAvatar(selectedFile);
 
-    updateUser(
-      { fullName, avatar },
-      {
-        onSuccess: () => {
-          setAvatar(null);
-          // Resetting form using .reset() that's available on all HTML form elements, otherwise the old filename will stay displayed in the UI
-          e.target.reset();
-        },
+        // Call the function to handle avatar submission
+        handleSubmitAvatar(e, selectedFile);
+    }
+  function handleSubmitAvatar(e,value){
+
+
+      const data = {
+          'avatar': value,
+          'user': profileData?.email
       }
-    );
+      updateAvatar(data,{
+          onSuccess: () => {
+              setAvatar('');
+          }
+      })
   }
 
   function handleCancel(e) {
-    // We don't even need preventDefault because this button was designed to reset the form (remember, it has the HTML attribute 'reset')
-    setFullName(currentFullName);
+    setFullName(profileData.fullName);
     setAvatar(null);
   }
 
   return (
+      <>
+          <Form>
+              <FormRow label='Avatar image'>
+                  <FileInput
+
+                      id='avatar'
+                      accept='image/*'
+                        disabled={isUpdatingAvatar}
+                      onChange={handleFileChange}
+                  />
+              </FormRow>
+
+          </Form>
     <Form onSubmit={handleSubmit}>
       <FormRow label='Email address'>
-        <Input value={email} disabled />
+        <Input  disabled value={profileData?.email}/>
       </FormRow>
       <FormRow label='Full name'>
         <Input
           type='text'
-          value={fullName}
-          onChange={(e) => setFullName(e.target.value)}
+            value={fullName || profileData?.fullName}
           disabled={isUpdating}
+          onChange={(e) => setFullName(e.target.value)}
           id='fullName'
         />
       </FormRow>
-      <FormRow label='Avatar image'>
-        <FileInput
-          disabled={isUpdating}
-          id='avatar'
-          accept='image/*'
-          onChange={(e) => setAvatar(e.target.files[0])}
-          // We should also validate that it's actually an image, but never mind
-        />
-      </FormRow>
-      <FormRow>
-        <Button onClick={handleCancel} type='reset' variation='secondary'>
-          Cancel
-        </Button>
-        <Button disabled={isUpdating}>Update account</Button>
-      </FormRow>
+
+        <FormRow label="Password" >
+            <Input
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                disabled={isUpdating}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+
+            />
+
+        </FormRow>
+        <FormRow>
+            <Button onClick={handleCancel} type='reset' variation='secondary'>
+                Cancel
+            </Button>
+            <Button disabled={isUpdating || !password}>Update account</Button>
+        </FormRow>
+
     </Form>
+
+          </>
   );
 }
 

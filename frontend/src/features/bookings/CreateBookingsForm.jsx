@@ -8,17 +8,16 @@ import {useCreateBooking} from "./useCreateBooking.js";
 import Checkbox from "../../ui/Checkbox.jsx";
 import {useEffect, useState} from "react";
 import Textarea from "../../ui/Textarea.jsx";
-import {useUpdateSettings} from "../settings/useUpdateSettings.js";
-import {useSettings} from "../settings/useSettings.js";
+
 import Spinner from "../../ui/Spinner.jsx";
 import {useBookedDates} from "./useBookedDates.js";
 import DatePicker from "react-datepicker";
-import {addDays, eachDayOfInterval} from "date-fns";
-import Row from "../../ui/Row.jsx";
+import {addDays} from "date-fns";
 import "react-datepicker/dist/react-datepicker.css";
 import {createGlobalStyle} from "styled-components";
 import { Portal } from "react-overlays";
 import {differenceInDays} from "date-fns/differenceInDays";
+import {useProfile} from "../authentication/useUpdateUser.js";
 const DatePickerWrapperStyles = createGlobalStyle`
     .date_picker.full-width {
         z-index: 9999 !important; /* Increase the z-index */
@@ -82,9 +81,9 @@ const CreateBookingsForm = ({onCloseModal,accommodationId,maxCapacity}) => {
     const [dateRange, setDateRange] = useState([null, null]);
     const [startDate, endDate] = dateRange;
     const [bookedDates,setBookedDates] = useState([]);
+    const {profileData,isLoading:isLoadingProfile} = useProfile();
 
-
-    const isWorking = isCreating;
+    const isWorking = isCreating || isCreating || isLoadingProfile;
 
     async function getFlagURL(nationality) {
         const apiUrl = `https://restcountries.com/v2/name/${nationality}`;
@@ -154,6 +153,7 @@ const CreateBookingsForm = ({onCloseModal,accommodationId,maxCapacity}) => {
         createBooking({
             data: {
                 ...data,
+                email: profileData?.email,
                 countryFlag: countryFlag,
                 hasDinner: addDinner,
                 hasBreakfast: addBreakfast,
@@ -183,8 +183,8 @@ const CreateBookingsForm = ({onCloseModal,accommodationId,maxCapacity}) => {
             </FormRow>
 
             <FormRow label="Email" error={errors?.email?.message}>
-                <Input type="email" disabled={isWorking}
-                       id="email" {...register("email", {required: "This field is required"})}/>
+                <Input type="email" disabled={profileData?.email} value={profileData?.email}
+                       id="email" {...register("email" )}/>
             </FormRow>
             <FormRow label="Country" error={errors?.nationality?.message}>
                 <Input type="text" disabled={isWorking}

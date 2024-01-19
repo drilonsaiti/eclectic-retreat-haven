@@ -4,8 +4,7 @@ import {useAccommodations} from "./useAccommodations.js";
 import Table from "../../ui/Table";
 import Menus from "../../ui/Menus.jsx";
 import {useSearchParams} from "react-router-dom";
-import {useFilterAccommodations} from "./useFilterAccommodations.js";
-import {useFormatString} from "./useFormatString.js";
+
 
 const AccommodationsTable = () => {
 
