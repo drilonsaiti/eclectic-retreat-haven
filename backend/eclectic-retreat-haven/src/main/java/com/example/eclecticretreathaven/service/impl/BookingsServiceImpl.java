@@ -25,11 +25,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
-import java.util.stream.Stream;
 
 @Service
 @AllArgsConstructor
-
 public class BookingsServiceImpl implements BookingsService {
 
     private final BookingsRepository bookingsRepository;
@@ -40,18 +38,14 @@ public class BookingsServiceImpl implements BookingsService {
     private final AccommodationsRepository accommodationsRepository;
     private final JwtService jwtService;
 
-
-
-
-
     public List<BookingDTO> getAllBookings(PageRequest pageable, String types, String status, String sort,String authHeader) {
         List<Bookings> bookings;
         if (authHeader.startsWith("Bearer ")){
-           String jwt = authHeader.substring(7);
+            String jwt = authHeader.substring(7);
             String email = jwtService.extractUsername(jwt);
 
             bookings = bookingsRepository.findAllByGuests_Email(email);
-        }else{
+        } else {
             bookings = bookingsRepository.findAll();
         }
 
@@ -85,21 +79,20 @@ public class BookingsServiceImpl implements BookingsService {
                 throw new IllegalArgumentException("Invalid field for sorting: " + field);
         }
     }
+
     public long getTotalBookingsCount(String types, String status) {
         if (types.isEmpty() || status.isEmpty())
             return bookingsRepository.count();
-        AccommodationTypes accommodationTypes = ( !types.equals("all")) ?
+        AccommodationTypes accommodationTypes = (!types.equals("all")) ?
                 AccommodationTypes.fromLabelIgnoreCase(types.replace("_", " ")) : null;
         if (!types.equals("all") && !status.equals("all"))
-            return this.bookingsRepository.countFilteredBookings(accommodationTypes,status);
+            return this.bookingsRepository.countFilteredBookings(accommodationTypes, status);
         else if (!types.equals("all"))
-            return this.bookingsRepository.countFilteredBookings(accommodationTypes,"");
-       else if ( !status.equals("all"))
-            return this.bookingsRepository.countFilteredBookings(null,status);
-
+            return this.bookingsRepository.countFilteredBookings(accommodationTypes, "");
+        else if (!status.equals("all"))
+            return this.bookingsRepository.countFilteredBookings(null, status);
 
         return bookingsRepository.count();
-
     }
 
     @Override
@@ -110,12 +103,12 @@ public class BookingsServiceImpl implements BookingsService {
     @Override
     public Bookings createBooking(CreateBookingDto dto) throws ParseException {
         System.out.println(dto);
-        Guests guests = guestsMapper.createGuest(dto.getFullName(),dto.getEmail(), dto.getNationality(), dto.getNationalID(), dto.getCountryFlag());
+        Guests guests = guestsMapper.createGuest(dto.getFullName(), dto.getEmail(), dto.getNationality(), dto.getNationalID(), dto.getCountryFlag());
         this.guestsRepository.save(guests);
         Accommodations accm = this.accommodationsRepository.findById(dto.getAccommodationId()).orElseThrow();
         Settings settings = this.settingsRepository.findById(1L).orElseThrow();
 
-        return bookingsRepository.save(mapper.mapToDto(dto,guests,accm,settings));
+        return bookingsRepository.save(mapper.mapToDto(dto, guests, accm, settings));
     }
 
     @Override
@@ -123,7 +116,7 @@ public class BookingsServiceImpl implements BookingsService {
         if (bookingsRepository.existsById(id)) {
             Bookings bookings = this.bookingsRepository.findById(id).orElseThrow();
             Settings settings = this.settingsRepository.findById(1L).orElseThrow();
-            bookings= mapper.updateBookingForCheckin(booking,bookings,settings);
+            bookings = mapper.updateBookingForCheckin(booking, bookings, settings);
             return bookingsRepository.save(bookings);
         }
         return null;
@@ -138,28 +131,27 @@ public class BookingsServiceImpl implements BookingsService {
         }
     }
 
-    @Override
+   /* @Override
     public List<BookingAfterDateDto> getBookingByAfterDate(String date) {
         System.out.println("DATE: " + date);
         return this.bookingsRepository
-                .findAllByCreatedAtAfterAndCreatedAtBefore(LocalDateTime.parse(date.replaceAll("Z",""))
-                        ,LocalDateTime.now())
+                .findAllByCreatedAtAfterAndCreatedAtBefore(LocalDateTime.parse(date.replaceAll("Z", ""))
+                        , LocalDateTime.now())
                 .stream().map(mapper::getBookingByAfterDate).toList();
-    }
+    }*/
 
-    @Override
+   /* @Override
     public List<BookingDetailsDto> getBookingBytaysAfterDate(String date) {
         return this.bookingsRepository
-                .findAllByCreatedAtAfterAndCreatedAtBefore(LocalDateTime.parse(date.replaceAll("Z",""))
-                        ,LocalDateTime.now())
+                .findAllByCreatedAtAfterAndCreatedAtBefore(LocalDateTime.parse(date.replaceAll("Z", ""))
+                        , LocalDateTime.now())
                 .stream().filter(bookings -> bookings.getStatus().equals("checked-in") ||
                         bookings.getStatus().equals("checked-out")).map(mapper::toBookingDetailsDto).toList();
     }
 
-
     @Override
     public List<BookingDetailsDto> getStaysTodayActivity() {
-        return this.bookingsRepository.findCustomBookings(LocalDate.now(),LocalDate.now())
+        return this.bookingsRepository.findCustomBookings(LocalDate.now(), LocalDate.now())
                 .stream().map(mapper::toBookingDetailsDto).toList();
     }
 
@@ -171,8 +163,7 @@ public class BookingsServiceImpl implements BookingsService {
 
         // Extract and return a list of booked start and end dates
         return bookedDates.stream()
-                .map(bookings -> mapper.getBookingDates(bookings.getStartDate(),bookings.getEndDate()))
+                .map(bookings -> mapper.getBookingDates(bookings.getStartDate(), bookings.getEndDate()))
                 .toList();
-    }
+    }*/
 }
-

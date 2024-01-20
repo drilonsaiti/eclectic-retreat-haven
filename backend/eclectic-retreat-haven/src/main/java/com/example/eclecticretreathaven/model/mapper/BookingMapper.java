@@ -23,49 +23,25 @@ public class BookingMapper {
     private static final int END_HOUR = 9;
     private static LocalDateTime convertToLocalDateTime(String dateString) {
         System.out.println("DATE STRING: " + dateString);
-        LocalDateTime dateTime = LocalDateTime.parse(dateString+"T"+START_HOUR+":00:00");
+        LocalDateTime dateTime = LocalDateTime.parse(dateString + "T" + START_HOUR + ":00:00");
         System.out.println(dateTime);
         return dateTime;
     }
 
-
-    private static float totalPrice(float price, float extraPrice){
-
+    private static float totalPrice(float price, float extraPrice) {
         return price + extraPrice;
     }
 
-    private static float extraPrice(boolean hasBreakfast, boolean hasDinner,int numNights,int numGuests, Settings settings){
-
+    private static float extraPrice(boolean hasBreakfast, boolean hasDinner, int numNights, int numGuests, Settings settings) {
         float extraPrice = 0;
 
         if (hasBreakfast) extraPrice += settings.getBreakfastPrice() * numGuests;
-        if(hasDinner) extraPrice += settings.getDinnerPrice() * numGuests;
+        if (hasDinner) extraPrice += settings.getDinnerPrice() * numGuests;
 
         return extraPrice * numNights;
     }
 
-    private static float extraPriceChange(float extraPrice,boolean hasBreakfastDto,boolean hasDinnerDto,
-                                    boolean hasBreakfast, boolean hasDinner,int numNights,int numGuests, Settings settings){
-        float dinnerPrice = settings.getDinnerPrice() * numNights * numGuests;
-        float breakfastPrice = settings.getBreakfastPrice() * numNights * numGuests;
-        if (hasDinner && !hasDinnerDto){
-            extraPrice -= dinnerPrice;
-        }
-        if (!hasDinner && hasDinnerDto){
-            extraPrice += dinnerPrice;
-        }
-
-        if (hasBreakfast && !hasBreakfastDto){
-            extraPrice -= breakfastPrice;
-        }
-        if (!hasBreakfast && hasBreakfastDto){
-            extraPrice += breakfastPrice;
-        }
-        return extraPrice;
-    }
-
-
-    public BookingDTO mapEntityToDTO(Bookings dto,Bookings bookings) {
+    public BookingDTO mapEntityToDTO(Bookings dto, Bookings bookings) {
         Bookings entity = (bookings != null) ? bookings : new Bookings();
 
         return new BookingDTO(
@@ -84,18 +60,18 @@ public class BookingMapper {
         );
     }
 
-    public static Bookings mapToDto(CreateBookingDto dto, Guests guests, Accommodations accm,Settings settings) throws ParseException {
+    public static Bookings mapToDto(CreateBookingDto dto, Guests guests, Accommodations accm, Settings settings) throws ParseException {
         Bookings bookings = new Bookings();
         LocalDateTime startDate = convertToLocalDateTime(dto.getStartDate());
         int numOfNights = dto.getNumNights();
         LocalDateTime endDate = startDate.plusDays(numOfNights).minusHours(1);
-        float extrasPrice = extraPrice(dto.isHasBreakfast(), dto.isHasDinner(),dto.getNumNights(),dto.getNumGuests(),settings);
+        float extrasPrice = extraPrice(dto.isHasBreakfast(), dto.isHasDinner(), dto.getNumNights(), dto.getNumGuests(), settings);
 
         bookings.setStartDate(startDate);
         bookings.setEndDate(endDate);
         bookings.setPrice(accm.getRegularPrice());
         bookings.setExtrasPrice(extrasPrice);
-        bookings.setTotalPrice(totalPrice(accm.getRegularPrice(),extrasPrice));
+        bookings.setTotalPrice(totalPrice(accm.getRegularPrice(), extrasPrice));
         bookings.setNumNights(dto.getNumNights());
         bookings.setNumGuests(dto.getNumGuests());
         bookings.setHasBreakfast(dto.isHasBreakfast());
@@ -140,27 +116,25 @@ public class BookingMapper {
         return dto;
     }
 
-    public Bookings updateBookingForCheckin(UpdateBookingDto dto,Bookings bookings,Settings settings){
+    public Bookings updateBookingForCheckin(UpdateBookingDto dto, Bookings bookings, Settings settings) {
         System.out.println("PAID " + dto.isPaid());
         float extraPrice = extraPriceChange(bookings.getExtrasPrice(), dto.isHasBreakfast(), dto.isHasDinner(),
                 bookings.isHasBreakfast(), bookings.isHasDinner(), bookings.getNumNights(), bookings.getNumGuests(), settings);
-       if (dto.getStatus().equals("checked-in")) {
-           bookings.setHasBreakfast(dto.isHasBreakfast());
-           bookings.setHasDinner(dto.isHasDinner());
-           bookings.setStatus(dto.getStatus());
-           bookings.setExtrasPrice(extraPrice);
-           bookings.setTotalPrice(bookings.getPrice() + extraPrice);
-           bookings.setPaid(dto.isPaid());
-
-       }else if (dto.getStatus().equals("checked-out")){
-           bookings.setStatus(dto.getStatus());
-       }
-
+        if (dto.getStatus().equals("checked-in")) {
+            bookings.setHasBreakfast(dto.isHasBreakfast());
+            bookings.setHasDinner(dto.isHasDinner());
+            bookings.setStatus(dto.getStatus());
+            bookings.setExtrasPrice(extraPrice);
+            bookings.setTotalPrice(bookings.getPrice() + extraPrice);
+            bookings.setPaid(dto.isPaid());
+        } else if (dto.getStatus().equals("checked-out")) {
+            bookings.setStatus(dto.getStatus());
+        }
 
         return bookings;
     }
 
-    public BookingAfterDateDto getBookingByAfterDate(Bookings bookings){
+    public BookingAfterDateDto getBookingByAfterDate(Bookings bookings) {
         BookingAfterDateDto dto = new BookingAfterDateDto();
         dto.setExtrasPrice(bookings.getExtrasPrice());
         dto.setCreatedAt(bookings.getCreatedAt());
@@ -168,7 +142,28 @@ public class BookingMapper {
 
         return dto;
     }
-    public BookingDateDto  getBookingDates (LocalDateTime start,LocalDateTime end){
-        return new BookingDateDto(start,end);
+
+    public BookingDateDto getBookingDates(LocalDateTime start, LocalDateTime end) {
+        return new BookingDateDto(start, end);
+    }
+
+    private static float extraPriceChange(float extraPrice, boolean hasBreakfastDto, boolean hasDinnerDto,
+                                          boolean hasBreakfast, boolean hasDinner, int numNights, int numGuests, Settings settings) {
+        float dinnerPrice = settings.getDinnerPrice() * numNights * numGuests;
+        float breakfastPrice = settings.getBreakfastPrice() * numNights * numGuests;
+        if (hasDinner && !hasDinnerDto) {
+            extraPrice -= dinnerPrice;
+        }
+        if (!hasDinner && hasDinnerDto) {
+            extraPrice += dinnerPrice;
+        }
+
+        if (hasBreakfast && !hasBreakfastDto) {
+            extraPrice -= breakfastPrice;
+        }
+        if (!hasBreakfast && hasBreakfastDto) {
+            extraPrice += breakfastPrice;
+        }
+        return extraPrice;
     }
 }

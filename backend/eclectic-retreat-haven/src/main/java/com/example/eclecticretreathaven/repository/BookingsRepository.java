@@ -16,17 +16,17 @@ public interface BookingsRepository extends JpaRepository<Bookings, Long> {
 
     List<Bookings> findAllByAccommodations_AccommodationId(Long id);
     List<Bookings> findAllByGuests_Email(String email);
+
     @Query("SELECT COUNT(b) FROM Bookings b " +
             "WHERE (:types IS NULL OR b.accommodations.types = :types) " +
             "OR (:status IS NULL OR b.status = :status)")
     long countFilteredBookings(@Param("types") AccommodationTypes types, @Param("status") String status);
 
-    List<Bookings> findAllByCreatedAtAfterAndCreatedAtBefore(LocalDateTime after,LocalDateTime before);
-    List<Bookings> findAllByStartDateAfterAndStartDateBefore(LocalDateTime after,LocalDateTime before);
+    List<Bookings> findAllByCreatedAtAfterAndCreatedAtBefore(LocalDateTime after, LocalDateTime before);
+    List<Bookings> findAllByStartDateAfterAndStartDateBefore(LocalDateTime after, LocalDateTime before);
 
     @Query("SELECT b FROM Bookings b WHERE " +
             "((b.status = 'unconfirmed' AND CAST(b.startDate AS LocalDate) = :startDate) OR " +
             "(b.status = 'checked-in' AND CAST(b.endDate AS LocalDate) = :endDate))")
-    List<Bookings> findCustomBookings(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate  endDate);
-
+    List<Bookings> findCustomBookings(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 }
