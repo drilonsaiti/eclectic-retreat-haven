@@ -1,5 +1,8 @@
-import Heading from "../ui/Heading";
-import Row from "../ui/Row";
+import Heading from "../ui/Heading.jsx";
+import UpdateUserDataForm from "../features/authentication/UpdateUserDataForm.jsx";
+import Row from "../ui/Row.jsx";
+import UpdatePasswordForm from "../features/authentication/UpdatePasswordForm.jsx";
+
 
 function Account() {
   return (
@@ -8,12 +11,12 @@ function Account() {
 
       <Row>
         <Heading as="h3">Update user data</Heading>
-        <p>Update user data form</p>
+        <UpdateUserDataForm />
       </Row>
 
-      <Row>
+      <Row style={{marginTop: '2rem'}}>
         <Heading as="h3">Update password</Heading>
-        <p>Update user password form</p>
+        <UpdatePasswordForm/>
       </Row>
     </>
   );

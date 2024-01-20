@@ -141,10 +141,11 @@ public class BookingMapper {
     }
 
     public Bookings updateBookingForCheckin(UpdateBookingDto dto,Bookings bookings,Settings settings){
-        System.out.println("PAID " + dto.isPaid());
+        System.out.println("DTOOOO");
+        System.out.println(dto);
         float extraPrice = extraPriceChange(bookings.getExtrasPrice(), dto.isHasBreakfast(), dto.isHasDinner(),
                 bookings.isHasBreakfast(), bookings.isHasDinner(), bookings.getNumNights(), bookings.getNumGuests(), settings);
-        if (dto.getStatus().equals("checked-in")) {
+        if (dto.getStatus().equals("checked-in") || dto.getStatus().equals("unconfirmed")) {
             bookings.setHasBreakfast(dto.isHasBreakfast());
             bookings.setHasDinner(dto.isHasDinner());
             bookings.setStatus(dto.getStatus());

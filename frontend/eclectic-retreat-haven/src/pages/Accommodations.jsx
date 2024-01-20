@@ -1,23 +1,25 @@
 import Heading from "../ui/Heading";
 import Row from "../ui/Row";
 import AccommodationsTable from "../features/accommodations/AccommodationsTable.jsx";
-import Button from "../ui/Button.jsx";
-import {useState} from "react";
-import CreateAccommodationsForm from "../features/accommodations/CreateAccommodationsForm.jsx";
+import AddAccommodation from "../features/accommodations/AddAccommodation.jsx";
+import AccommodationTableOperations from "../features/accommodations/AccommodationTableOperations.jsx";
+import {useGetRole} from "../services/useGetRole.js";
 
 function Accommodations() {
-  const [showForm,setShowFrom] = useState(false);
+    const {roles,isLoading:isLoadingRole} = useGetRole();
+    const hasAdminRole = roles.includes("ROLE_ADMIN");
   return (
       <>
-    <Row type="horizontal">
+    <Row type="horizontal" change="yes">
       <Heading as="h1">All accommodations</Heading>
-      <p>TEST</p>
+     <AccommodationTableOperations/>
+
     </Row>
 
       <Row>
           <AccommodationsTable/>
-          <Button onClick={() => setShowFrom(!showForm)}>Add new cabin</Button>
-        {showForm && <CreateAccommodationsForm/>}
+          {hasAdminRole && <AddAccommodation/>}
+
       </Row>
       </>
   );

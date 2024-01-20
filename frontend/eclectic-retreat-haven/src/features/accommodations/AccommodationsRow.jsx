@@ -1,21 +1,19 @@
 import styled from "styled-components";
 import {formatCurrency} from "../../utils/helpers.js";
 import Button from "../../ui/Button.jsx";
-import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
-import {deleteAccommodation, getAccommodations, getAccommodationsTypes} from "../../services/apiAccommodations.js";
-import toast from "react-hot-toast";
+import ButtonGroup from "../../ui/ButtonGroup.jsx";
+import CreateAccommodationsForm from "./CreateAccommodationsForm.jsx";
+import {useDeleteAccommodation} from "./useDeleteAccommodation.js";
+import {HiPencil, HiSquare2Stack, HiTrash} from "react-icons/hi2";
+import {useCreateAccommodation} from "./useCreateAccommodation.js";
+import Modal from "../../ui/Modal.jsx";
+import ConfirmDelete from "../../ui/ConfirmDelete.jsx";
+import Table from "../../ui/Table";
+import Menus from "../../ui/Menus.jsx";
+import CreateBookingsForm from "../bookings/CreateBookingsForm.jsx";
+import {useGetRole} from "../../services/useGetRole.js";
 
-const TableRow = styled.div`
-  display: grid;
-  grid-template-columns: 0.6fr 1.8fr 2.2fr 1fr 1fr 1fr;
-  column-gap: 2.4rem;
-  align-items: center;
-  padding: 1.4rem 2.4rem;
 
-  &:not(:last-child) {
-    border-bottom: 1px solid var(--color-grey-100);
-  }
-`;
 
 const Img = styled.img`
   display: block;
@@ -48,29 +46,69 @@ const Discount = styled.div`
 
 // eslint-disable-next-line react/prop-types
 const AccommodationsRow = ({accommodation}) => {
-    const {accommodationId,name,maxCapacity,regularPrice,discount,image,types} = accommodation;
+    const {accommodationId,name,maxCapacity,regularPrice,discount,image,types,description} = accommodation;
 
-    const queryClient = useQueryClient();
-    const {isPending,mutate} = useMutation({
-        mutationFn:  deleteAccommodation,
-        onSuccess: () => {
-            toast.success("Accommodation successfully deleted")
-            queryClient.invalidateQueries({
-                queryKey: ['accommodations'],
-            })
-        },
-        onError: (error) => toast.error(error.message)
-    })
+    const {isCreating,createAccommodation} = useCreateAccommodation();
+    const {isDeleting,deleteMutate} = useDeleteAccommodation();
+    const {roles,isLoading:isLoadingRole} = useGetRole();
+    const hasAdminRole = roles.includes("ROLE_ADMIN");
+
+    function handleDuplicate() {
+        createAccommodation({
+            name: `Copy of ${name}`,
+            maxCapacity,
+            regularPrice,
+            discount,
+            image,
+            types,
+            description,
+        });
+    }
     return (
-        <TableRow role="row">
-            <Img src={image} />
-            <Accommodation>{types}</Accommodation>
+        <Table.Row role="row">
+            <Img src={image}/>
+            <Accommodation>{name}</Accommodation>
             <div>Fits up to {maxCapacity} guests</div>
             <Price>{formatCurrency(regularPrice)}</Price>
             <Discount>{formatCurrency(discount)}</Discount>
-            <Button variation="danger" onClick={() => mutate(accommodationId)} disabled={isPending}
-            >Delete</Button>
-        </TableRow>
+
+                <Modal>
+                    <ButtonGroup>
+                    <Modal.Open opens="book">
+                        <Button>Book now</Button>
+                    </Modal.Open>
+                        {hasAdminRole &&
+                    <Menus.Menu>
+                        <Menus.Toggle id={accommodationId} />
+                        <Menus.List id={accommodationId}>
+                            <Menus.Button icon={<HiSquare2Stack/> } onClick={handleDuplicate}>Duplicate</Menus.Button>
+                            <Modal.Open opens="edit">
+                                <Menus.Button icon={<HiPencil/> }>Edit</Menus.Button>
+                            </Modal.Open>
+                            <Modal.Open opens="delete">
+                                <Menus.Button icon={<HiTrash/> }>Delete</Menus.Button>
+                            </Modal.Open>
+
+                        </Menus.List>
+                    </Menus.Menu>
+                        }
+
+                    </ButtonGroup>
+                    <Modal.Window name="book">
+                        <CreateBookingsForm accommodationId={accommodationId} maxCapacity={maxCapacity}/>
+                    </Modal.Window>
+                    {hasAdminRole &&
+                    <Modal.Window name="edit">
+                        <CreateAccommodationsForm accommodationToEdit={accommodation} />
+                    </Modal.Window>
+                    }
+                    {hasAdminRole &&
+                    <Modal.Window name="delete">
+                        <ConfirmDelete resource="accommodations" disabled={isDeleting} onConfirm={() => deleteMutate(accommodationId)}/>
+                    </Modal.Window>
+}
+                </Modal>
+        </Table.Row>
     );
 };
 

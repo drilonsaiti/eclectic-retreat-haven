@@ -24,8 +24,9 @@ const Box = styled.div`
   }
 
   & p {
-    font-family: "Sono";
-    margin-bottom: 3.2rem;
+      font-family: 'Sono', sans-serif;
+
+      margin-bottom: 3.2rem;
     color: var(--color-grey-500);
   }
 `;

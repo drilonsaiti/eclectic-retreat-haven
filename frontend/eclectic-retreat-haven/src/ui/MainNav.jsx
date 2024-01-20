@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 import {
   HiOutlineCalendarDays,
   HiOutlineCog6Tooth,
@@ -7,11 +7,19 @@ import {
   HiOutlineHomeModern,
   HiOutlineUsers,
 } from "react-icons/hi2";
+import {Roles} from "../utils/services.js";
 
 const NavList = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
+
+  ${(props) =>
+      props.user  &&
+      css`
+        flex-direction: row;
+        
+      `}
 `;
 
 const StyledNavLink = styled(NavLink)`
@@ -53,40 +61,58 @@ const StyledNavLink = styled(NavLink)`
   }
 `;
 
-function MainNav() {
+function MainNav({user}) {
   return (
     <nav>
-      <NavList>
-        <li>
-          <StyledNavLink to="/dashboard">
-            <HiOutlineHome />
-            <span>Home</span>
-          </StyledNavLink>
-        </li>
-        <li>
-          <StyledNavLink to="/bookings">
-            <HiOutlineCalendarDays />
-            <span>Bookings</span>
-          </StyledNavLink>
-        </li>
+
+      <NavList user>
+        {Roles() === "ROLE_ADMIN" &&
+            <li>
+              <StyledNavLink to="/dashboard">
+                <HiOutlineHome/>
+                <span>Home</span>
+              </StyledNavLink>
+            </li>
+        }
+        {Roles() === "ROLE_ADMIN" &&
+            <li>
+              <StyledNavLink to="/bookings">
+                <HiOutlineCalendarDays/>
+                <span>Bookings</span>
+              </StyledNavLink>
+            </li>
+        }
         <li>
           <StyledNavLink to="/accommodations">
-            <HiOutlineHomeModern />
-            <span>Accommodations</span>
+            <HiOutlineHomeModern/>
+            <span>Accommods</span>
           </StyledNavLink>
         </li>
+        {Roles() === "ROLE_USER" &&
         <li>
-          <StyledNavLink to="/users">
-            <HiOutlineUsers />
-            <span>Users</span>
+          <StyledNavLink to="/myBookings">
+            <HiOutlineCalendarDays/>
+            <span>My bookings</span>
           </StyledNavLink>
         </li>
-        <li>
-          <StyledNavLink to="/settings">
-            <HiOutlineCog6Tooth />
-            <span>Settings</span>
-          </StyledNavLink>
-        </li>
+        }
+
+        {Roles() === "ROLE_ADMIN" &&
+            <li>
+              <StyledNavLink to="/users">
+                <HiOutlineUsers/>
+                <span>Users</span>
+              </StyledNavLink>
+            </li>
+        }
+        {Roles() === "ROLE_ADMIN" &&
+            <li>
+              <StyledNavLink to="/settings">
+                <HiOutlineCog6Tooth/>
+                <span>Settings</span>
+              </StyledNavLink>
+            </li>
+        }
       </NavList>
     </nav>
   );

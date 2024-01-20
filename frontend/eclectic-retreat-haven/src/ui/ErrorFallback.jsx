@@ -24,8 +24,32 @@ const Box = styled.div`
   }
 
   & p {
-    font-family: "Sono";
-    margin-bottom: 3.2rem;
+      font-family: 'Sono', sans-serif;
+
+      margin-bottom: 3.2rem;
     color: var(--color-grey-500);
   }
 `;
+
+import React from 'react';
+import Heading from "./Heading.jsx";
+import GlobalStyles from "../styles/GlobalStyles.js";
+import Button from "./Button.jsx";
+
+const ErrorFallback = ({error,resetErrorBoundary}) => {
+    return (
+        <>
+        <GlobalStyles/>
+        <StyledErrorFallback>
+            <Box>
+                <Heading type="h1">Something went wrong🧐</Heading>
+               <p> {error.message}</p>
+                <Button onClick={resetErrorBoundary} size="large">Try again</Button>
+
+            </Box>
+        </StyledErrorFallback>
+        </>
+    );
+};
+
+export default ErrorFallback;

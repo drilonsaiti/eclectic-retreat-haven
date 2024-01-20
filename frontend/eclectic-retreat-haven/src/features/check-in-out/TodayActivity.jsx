@@ -1,10 +1,12 @@
-import styled from "styled-components";
+import styled from 'styled-components';
+import Heading from "../../ui/Heading.jsx";
+import Row from "../../ui/Row.jsx";
+import TodayItem from "../dashboard/TodayItem.jsx";
+import Spinner from "../../ui/Spinner.jsx";
+import {useActivityTodayStays} from "./useActivityTodayStays.js";
 
-import Heading from "../../ui/Heading";
-import Row from "../../ui/Row";
 
 const StyledToday = styled.div`
-  /* Box */
   background-color: var(--color-grey-0);
   border: 1px solid var(--color-grey-100);
   border-radius: var(--border-radius-md);
@@ -37,13 +39,30 @@ const NoActivity = styled.p`
 `;
 
 function Today() {
+  const { isLoading, stays } = useActivityTodayStays();
+
   return (
     <StyledToday>
-      <Row type="horizontal">
-        <Heading as="h2">Today</Heading>
+      <Row type='horizontal'>
+        <Heading type='h2'>Today</Heading>
       </Row>
+
+      {!isLoading ? (
+        stays?.length > 0 ? (
+          <TodayList>
+            {stays.map((stay) => (
+              <TodayItem key={stay.id} stay={stay} />
+            ))}
+          </TodayList>
+        ) : (
+          <NoActivity>No activity today...</NoActivity>
+        )
+      ) : (
+        <Spinner />
+      )}
     </StyledToday>
   );
 }
 
 export default Today;
+

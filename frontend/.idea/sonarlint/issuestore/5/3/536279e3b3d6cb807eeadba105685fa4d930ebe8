@@ -1,0 +1,15 @@
+
+Ojavascript:S67740".'accommodation' is missing in props validation(­êð–þÿÿÿÿ
+Zjavascript:S67741">'accommodation.accommodationId' is missing in props validation(¾µöä
+Ojavascript:S67741"3'accommodation.name' is missing in props validation(¾µöä
+Vjavascript:S67741":'accommodation.maxCapacity' is missing in props validation(¾µöä
+Wjavascript:S67741";'accommodation.regularPrice' is missing in props validation(¾µöä
+Sjavascript:S67741"7'accommodation.discount' is missing in props validation(¾µöä
+Pjavascript:S67741"4'accommodation.image' is missing in props validation(¾µöä
+Pjavascript:S67741"4'accommodation.types' is missing in props validation(¾µöä
+Vjavascript:S67741":'accommodation.description' is missing in props validation(¾µöä
+Wjavascript:S14813";Remove the declaration of the unused 'isCreating' variable.(”ÞÕê
+Tjavascript:S18543"8Remove this useless assignment to variable "isCreating".(”ÞÕê
+_javascript:S14815">Remove the declaration of the unused 'isLoadingRole' variable.(Óþ€Òüÿÿÿÿ
+\javascript:S18545";Remove this useless assignment to variable "isLoadingRole".(Óþ€Òüÿÿÿÿ
+ijavascript:S6819D"NUse <tr> instead of the "row" role to ensure accessibility across all devices.( è¬
